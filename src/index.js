@@ -1,11 +1,20 @@
 import * as React from "react";
-import { createRoot } from "react-dom/client";
-import Board from "./Chess/Board";
-import { observe } from "./Chess/Game";
+import ReactDOM from "react-dom";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import "./index.css";
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
+import { FormBuilderPage } from "./views/forms/builder/FormBuilderPage";
 
-observe((knightPosition) =>
-  root.render(<Board knightPosition={knightPosition} />)
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <DndProvider backend={HTML5Backend}>
+        <FormBuilderPage />
+      </DndProvider>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
