@@ -7,7 +7,7 @@ import {
   FormShortAnswerElement,
 } from "../../elements";
 
-import { DropArea } from "../../elements/shared-components/DropArea";
+import { DropArea } from "../../elements/Components/DropArea";
 
 type Props = {
   formData: any[];

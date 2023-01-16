@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDrag } from "react-dnd";
-import { AddButton } from "../shared-components/AddButton";
+import { AddButton } from "../Components/AddButton";
 type Props = {
   type: "container" | "shortAnswer" | "checkbox";
   color?: string;
