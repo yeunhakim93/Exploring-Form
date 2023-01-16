@@ -5,15 +5,17 @@ export type FormElementType = {
   ID: string;
   type: "shortAnswer" | "checkbox" | "container";
   body: string;
+  color?: string;
   required?: boolean;
 };
 
-// export type FormElementContainerType = Omit<
-//   FormElementType,
-//   "required type"
-// > & {
-//   column: FormElementType | FormElementContainerType;
-// };
+export type FormElementContainerType = Omit<
+  FormElementType,
+  "required type"
+> & {
+  type: "container";
+  columns: Array<FormElementType | FormElementContainerType>;
+};
 
 export type FormData = {
   brandID: string;
