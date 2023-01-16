@@ -1,6 +1,3 @@
-import * as React from "react";
-import { useDrag } from "react-dnd";
-
 import { FormIcon } from "../../elements/FormIcons";
 
 const elementArr = ["checkbox", "shortAnswer", "container"] as const;
