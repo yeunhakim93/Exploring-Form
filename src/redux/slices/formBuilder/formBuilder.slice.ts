@@ -34,13 +34,22 @@ export const formBuilderSlice = createSlice({
   name: "formBuilder",
   initialState,
   reducers: {
-    addFormElement(state, action: PayloadAction<FormElementType>) {
-      state.data.push(action.payload);
+    addFormElement(
+      state,
+      action: PayloadAction<{ element: FormElementType; parentId?: string }>
+    ) {
+      state.data.push(action.payload.element);
     },
-    removeFormElement(state, action: PayloadAction<string>) {
+    removeFormElement(
+      state,
+      action: PayloadAction<{ id: string; parentId?: string }>
+    ) {
       //find the ID and remove
     },
-    updateFormElement(state, action: PayloadAction<FormElementType>) {
+    updateFormElement(
+      state,
+      action: PayloadAction<{ id: string; element: FormElementType }>
+    ) {
       //find the ID and update
       //needs to accept ID & form element
     },
@@ -63,46 +72,65 @@ export const {
   submitForm,
 } = formBuilderSlice.actions;
 
-// {
-//   a123: {
-//     prev: 'null'
-//     next: 'd456'
-//     children: [b234,c345],
-//     formElementData: {
-//       type: 'container',
-//       body: '',
-//       required: true
+const returnObject = {};
+// function adjecencify({ data, parentId, idx }) {
+
+//   /*
+
+//     Loop of array overall
+//     either columns subArrays, or
+//     data overall
+
+//   */
+
+//   for (const item of data) {
+//     returnObject[item.id] = { type: item.type }
+
+//     if (item.columns) {
+//       let finalChildren = []
+
+//       /*
+
+//         Loop over columns items
+
+//       */
+//       for (let i = 0; i < item.columns.length; i++) {
+//         nestedColumn = item.columns[i]
+
+//         /*
+
+//           Traverses all children and returns
+//           their ids
+
+//         */
+//         finalChildren.push(nestedColumn.map((nestedItem) => nestedItem.id))
+
+//         /*
+
+//           Call the function on each columns
+//           sub-array
+
+//         */
+
+//         adjecencify({ data: nestedColumn, parentId: item.id, idx: i })
+//       }
+
+//       returnObject[item.id].children = finalChildren
 //     }
-//   },
-//  b234: {
-//     formElementData: {
-//       type: 'checkbox',
-//       body: '',
-//       required: true
+
+//     /*
+
+//       Associate nested item
+//       with its parent, and its
+//       array index on children
+
+//     */
+
+//     if (parentId) {
+//       returnObject[item.id].parent = {
+//         id: parentId,
+//       }
+//       if (idx !== undefined) returnObject[item.id].parent.idx = idx
 //     }
-//  }
-// ...
+//   }
 // }
-
-// type FormElementDataType = {
-//   ID: string;
-//   type: "container" | "shortAnswer" | "checkbox";
-//   body: string;
-//   required?: boolean;
-//   parentID?: string;
-// };
-
-// type FormElementAdjacencyListType = {
-//   [ID: string]: {
-//     formElementData: FormElementDataType;
-//     children?: string[];
-//     unicorn?: string;
-//   };
-// };
-// const initialState: FormElementAdjacencyListType = {};
-
-// type FormData = {
-//   brandID: string;
-//   kind: "contract" | "subcontract" | "proposal" | "questionnaire" | "lead";
-//   data: Omit<FormElementDataType, "parentID">[];
-// };
