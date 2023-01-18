@@ -1,5 +1,9 @@
 import * as React from "react";
-export const FormShortAnswerElement = () => {
+type Props = {
+  id?: string;
+  children?: any;
+};
+export const FormShortAnswerElement: React.FC<Props> = () => {
   return (
     <div
       style={{

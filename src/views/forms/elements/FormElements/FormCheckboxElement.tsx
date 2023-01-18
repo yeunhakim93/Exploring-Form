@@ -2,6 +2,7 @@ import * as React from "react";
 
 type Props = {
   id?: string;
+  children?: any;
 };
 
 export const FormCheckboxElement: React.FC<Props> = () => {

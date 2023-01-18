@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 
 export type FormElementType = {
-  ID: string;
+  id: string;
   type: "shortAnswer" | "checkbox" | "container";
   body: string;
   color?: string;
@@ -18,14 +18,14 @@ export type FormElementContainerType = Omit<
 };
 
 export type FormData = {
-  brandID: string;
+  brandId: string;
   kind: "contract" | "subcontract" | "proposal" | "questionnaire" | "lead";
   data: Array<FormElementType>;
   // data: Array<FormElementType | FormElementContainerType>;
 };
 
 const initialState: FormData = {
-  brandID: "formteam",
+  brandId: "formteam",
   kind: "questionnaire",
   data: [],
 };
@@ -38,11 +38,11 @@ export const formBuilderSlice = createSlice({
       state.data.push(action.payload);
     },
     removeFormElement(state, action: PayloadAction<string>) {
-      //find the ID and remove
+      //find the id and remove
     },
     updateFormElement(state, action: PayloadAction<FormElementType>) {
-      //find the ID and update
-      //needs to accept ID & form element
+      //find the id and update
+      //needs to accept id & form element
     },
     clearForm(state) {
       return initialState;
@@ -62,47 +62,3 @@ export const {
   clearForm,
   submitForm,
 } = formBuilderSlice.actions;
-
-// {
-//   a123: {
-//     prev: 'null'
-//     next: 'd456'
-//     children: [b234,c345],
-//     formElementData: {
-//       type: 'container',
-//       body: '',
-//       required: true
-//     }
-//   },
-//  b234: {
-//     formElementData: {
-//       type: 'checkbox',
-//       body: '',
-//       required: true
-//     }
-//  }
-// ...
-// }
-
-// type FormElementDataType = {
-//   ID: string;
-//   type: "container" | "shortAnswer" | "checkbox";
-//   body: string;
-//   required?: boolean;
-//   parentID?: string;
-// };
-
-// type FormElementAdjacencyListType = {
-//   [ID: string]: {
-//     formElementData: FormElementDataType;
-//     children?: string[];
-//     unicorn?: string;
-//   };
-// };
-// const initialState: FormElementAdjacencyListType = {};
-
-// type FormData = {
-//   brandID: string;
-//   kind: "contract" | "subcontract" | "proposal" | "questionnaire" | "lead";
-//   data: Omit<FormElementDataType, "parentID">[];
-// };

@@ -16,8 +16,8 @@ export const useFormBuilder = () => {
   const dispatch = useAppDispatch();
   const dispatchAddFormElement = (formElement: FormElementType) =>
     dispatch(addFormElement(formElement));
-  const dispatchRemoveFormElement = (formElementID: string) =>
-    dispatch(removeFormElement(formElementID));
+  const dispatchRemoveFormElement = (formElementId: string) =>
+    dispatch(removeFormElement(formElementId));
   const dispatchUpdateFormElement = (formElement: FormElementType) =>
     dispatch(updateFormElement(formElement));
 

@@ -1,0 +1,43 @@
+[
+  {
+    "type": "shortAnswer",
+    "id": "1"
+  },
+  {
+    "id": "2",
+    "type": "container",
+    "columns": [
+      [
+        {
+          "id": "3",
+          "type": "container",
+          "columns": [
+            [
+              {
+                "id": "4",
+                "type": "checkbox"
+              },
+              {
+                "id": "5",
+                "type": "shortAnswer"
+              }
+            ],
+            [
+              {
+                "id": "6",
+                "type": "checkbox"
+              }
+            ]
+          ]
+        }
+      ],
+      [
+        {
+          "id": "7",
+          "type": "container",
+          "columns": [[], [{ "id": "8", "type": "text" }]]
+        }
+      ]
+    ]
+  }
+]

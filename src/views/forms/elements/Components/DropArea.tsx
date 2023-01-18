@@ -2,10 +2,10 @@ import * as React from "react";
 import { useDrop } from "react-dnd";
 import { DroppableItemTypesArr } from "../ItemTypes";
 import { useFormBuilder } from "../../../../redux/slices/formBuilder";
-import { FormElementType } from "../../../../redux/slices/formBuilder";
+import { FormElementType } from "../../../../types";
 
 type itemType = {
-  ID: string;
+  id: string;
   type: "container" | "checkbox" | "shortAnswer";
   body: string;
 };
@@ -25,7 +25,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
   prevId,
   index,
 }) => {
-  const { formData, dispatchAddFormElement } = useFormBuilder();
+  const { dispatchAddFormElement } = useFormBuilder();
 
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
@@ -34,18 +34,13 @@ export const DropArea: React.FC<DropAreaProps> = ({
         return true;
       },
       drop: (item: itemType, monitor) => {
-        console.log("dropping");
         const temp = {
-          ID: Date.now().toString(),
+          id: Date.now().toString(),
           type: item.type,
           body: "<h1>Place holder</h1>",
         };
         handleElementDropped && handleElementDropped(temp, prevId, index);
-        // dispatchAddFormElement({
-        //   ID: Date.now().toString(),
-        //   type: item.type,
-        //   body: "<h1>Place holder</h1>",
-        // });
+        // dispatch
       },
       collect: (monitor) => ({
         isOver: monitor.isOver(),
