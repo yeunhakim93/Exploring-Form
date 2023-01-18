@@ -6,12 +6,14 @@ import { DropArea } from "./Components/DropArea";
 type Props = {
   id: string;
   rows: (FormElementType | FormElementContainerType)[];
+  parentId: string | undefined; // List belongs to the parent, but doesn't belong in overall data structure
   containerIndex?: number; // this is only used if the FormElementsList belongs in a container
 };
 export const FormElementsList: React.FC<Props> = ({
   id,
   containerIndex,
   rows,
+  parentId,
 }) => {
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
@@ -49,15 +51,26 @@ export const FormElementsList: React.FC<Props> = ({
     }
   };
 
+  console.log("CONTAINER INDEX: ", containerIndex);
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <DropArea handleElementDropped={handleElementDropped} />
+      <DropArea
+        handleElementDropped={handleElementDropped}
+        index={containerIndex}
+        parent={parentId}
+      />
       {elementList.map((elementData, i) => {
         let id = elementData.id || Date.now().toString();
         return (
-          <div key={i}>
+          <div key={id}>
             <FormElement elementData={{ ...elementData, id }} />
-            <DropArea prevId={id} handleElementDropped={handleElementDropped} />
+            <DropArea
+              prevId={id}
+              handleElementDropped={handleElementDropped}
+              index={containerIndex}
+              parent={parentId}
+            />
           </div>
         );
       })}
