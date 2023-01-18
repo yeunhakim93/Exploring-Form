@@ -1,5 +1,10 @@
 import * as React from "react";
-export const FormCheckboxElement = () => {
+
+type Props = {
+  id?: string;
+};
+
+export const FormCheckboxElement: React.FC<Props> = () => {
   return (
     <div
       style={{

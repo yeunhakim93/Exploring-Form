@@ -10,7 +10,7 @@ export const FormBuilderPage = () => {
     <>
       <div style={{ display: "flex" }}>
         <FormBuilderSidebar />
-        <FormBuilderCanvas formData={formData} />
+        <FormBuilderCanvas />
       </div>
 
       <button
