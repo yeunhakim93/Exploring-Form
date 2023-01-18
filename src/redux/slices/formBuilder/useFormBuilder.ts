@@ -8,7 +8,7 @@ import {
   clearForm,
   submitForm,
 } from "./formBuilder.slice";
-import { FormElementType } from "./formBuilder.slice";
+import { FormElementType } from "../../../types";
 
 export const useFormBuilder = () => {
   const formData = useAppSelector(selectFormData);
@@ -17,10 +17,15 @@ export const useFormBuilder = () => {
   const dispatchAddFormElement = ({
     formElement,
     parentId,
+    index,
+    prevId,
   }: {
     formElement: FormElementType;
     parentId?: string;
-  }) => dispatch(addFormElement({ element: formElement, parentId }));
+    index?: number;
+    prevId?: string;
+  }) =>
+    dispatch(addFormElement({ element: formElement, parentId, index, prevId }));
   const dispatchRemoveFormElement = ({
     formElementId,
     parentElementId,

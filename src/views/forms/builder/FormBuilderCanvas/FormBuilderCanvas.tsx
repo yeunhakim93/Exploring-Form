@@ -17,13 +17,16 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
     { id: "sdfg", type: "shortAnswer", body: "<h1> temp </h1>", color: "red" },
   ]);
 
-  const handleAddFormElement = (
-    newElement: FormElementType,
-    prevElementId?: string
-  ) => {
+  const handleAddFormElement = ({
+    newElement,
+    prevId,
+  }: {
+    newElement: FormElementType;
+    prevId?: string;
+  }) => {
     setFormElements((prevFormElements) => {
       let prevElementIndex = prevFormElements.findIndex(
-        (element) => element.id === prevElementId
+        (element) => element.id === prevId
       );
 
       // I want this to be cleaner :(

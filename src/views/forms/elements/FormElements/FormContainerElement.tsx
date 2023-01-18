@@ -19,11 +19,17 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
     (FormElementType | FormElementContainerType | null)[]
   >(new Array(columnNumber).fill(null));
 
-  const handleElementDropped = (
-    newElement: FormElementType,
-    prevId?: string,
-    index?: number
-  ) => {
+  const handleElementDropped = ({
+    newElement,
+    prevId,
+    index,
+    parent,
+  }: {
+    newElement: FormElementType;
+    prevId?: string;
+    index?: number;
+    parent?: string;
+  }) => {
     if (index !== undefined)
       setColumn((column) => [
         ...column.slice(0, index),
@@ -59,7 +65,11 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
               }}
             >
               Add your element here
-              <DropArea handleElementDropped={handleElementDropped} index={i} />
+              <DropArea
+                handleElementDropped={handleElementDropped}
+                index={i}
+                parent={id}
+              />
             </div>
           );
         } else {
