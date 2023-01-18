@@ -1,42 +1,42 @@
 [
-  "Note: not the correct initial data!",
   {
-    "type": "shortAnswer",
-    "id": "1"
+    "id": "asdf",
+    "type": "checkbox",
+    "body": "<h1> temp </h1>",
+    "color": "red"
   },
   {
-    "id": "2",
+    "id": "sdfg",
+    "type": "shortAnswer",
+    "body": "<h1> temp </h1>",
+    "color": "red"
+  },
+  {
+    "id": "asdfasdf",
     "type": "container",
+    "body": "<h1> temp </h1>",
     "columns": [
       [
         {
-          "id": "3",
-          "type": "container",
-          "columns": [
-            [
-              {
-                "id": "4",
-                "type": "checkbox"
-              },
-              {
-                "id": "5",
-                "type": "shortAnswer"
-              }
-            ],
-            [
-              {
-                "id": "6",
-                "type": "checkbox"
-              }
-            ]
-          ]
+          "id": "asdf123",
+          "type": "checkbox",
+          "body": "<h1> temp </h1>",
+          "color": "red"
+        },
+        {
+          "id": "asdf234",
+          "type": "shortAnswer",
+          "body": "<h1> temp </h1>",
+          "color": "red"
         }
       ],
+      [],
       [
         {
-          "id": "7",
-          "type": "container",
-          "columns": [[], [{ "id": "8", "type": "text" }]]
+          "id": "asdf346",
+          "type": "checkbox",
+          "body": "<h1> temp </h1>",
+          "color": "red"
         }
       ]
     ]

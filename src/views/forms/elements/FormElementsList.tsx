@@ -1,16 +1,66 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { FormElement } from ".";
+import { FormElementType, FormElementContainerType } from "../../../types";
+import { DropArea } from "./Components/DropArea";
 
 type Props = {
   id: string;
-  index?: "number";
+  rows: (FormElementType | FormElementContainerType)[];
+  containerIndex?: number; // this is only used if the FormElementsList belongs in a container
 };
-export const FormElementsList: React.FC<Props> = ({ id, index }) => {
+export const FormElementsList: React.FC<Props> = ({
+  id,
+  containerIndex,
+  rows,
+}) => {
+  const [elementList, setElementList] =
+    useState<(FormElementType | FormElementContainerType)[]>(rows);
+  const handleElementDropped = ({
+    newElement,
+    prevId,
+    index,
+    parent,
+  }: {
+    newElement: FormElementType;
+    prevId?: string; // this is the id of element that's directly above the drop zone. if the drop zone is the top drop zone, this is null
+    index?: number; // this is only used if the FormElementsList belongs in a container
+    parent?: string;
+  }) => {
+    if (!prevId) {
+      // the drop zone is the top drop zone
+      setElementList((elementList) => [newElement, ...elementList]);
+    } else if (index !== undefined) {
+      // FormElementsList belongs in a container
+      setElementList((elementList) => [
+        ...elementList.slice(0, index + 1),
+        newElement,
+        ...elementList.slice(index + 1),
+      ]);
+    } else {
+      // FormElementsList does not belong in a container
+      let prevElementIndex = elementList.findIndex(
+        (element) => element.id === prevId
+      );
+      setElementList((prevElementList) => [
+        ...prevElementList.slice(0, prevElementIndex + 1),
+        newElement,
+        ...prevElementList.slice(prevElementIndex + 1),
+      ]);
+    }
+  };
+
   return (
-    <></>
-    // <div key={formDataElement.id}>
-    //   <FormElement type={formDataElement.type} id={id} />
-    //   <DropArea prevId={id} handleElementDropped={handleAddFormElement} />
-    // </div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <DropArea handleElementDropped={handleElementDropped} />
+      {elementList.map((elementData, i) => {
+        let id = elementData.id || Date.now().toString();
+        return (
+          <div key={i}>
+            <FormElement elementData={{ ...elementData, id }} />
+            <DropArea prevId={id} handleElementDropped={handleElementDropped} />
+          </div>
+        );
+      })}
+    </div>
   );
 };

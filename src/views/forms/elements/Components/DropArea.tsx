@@ -46,6 +46,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
           id: Date.now().toString(),
           type: item.type,
           body: "<h1>Place holder</h1>",
+          ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
         };
         handleElementDropped &&
           handleElementDropped({ newElement: temp, prevId, index, parent });
@@ -57,16 +58,6 @@ export const DropArea: React.FC<DropAreaProps> = ({
           index: location within the array
 
         */
-        console.log(
-          "the porps: ",
-          temp,
-          "\n prev:",
-          prevId,
-          "\n index:",
-          index,
-          "\n parent: ",
-          parent
-        );
         // dispatch
         dispatchAddFormElement({
           formElement: temp,

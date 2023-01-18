@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { FormElementContainerType, FormElementType } from "../../../../types";
-import { FormElement } from "../../elements";
-
+import { FormElement, FormElementsList } from "../../elements";
 import { DropArea } from "../../elements/Components/DropArea";
+
+const data = require("../../../../InitialData.json");
 
 type Props = {
   id?: string;
@@ -53,16 +54,7 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
       }}
     >
       FormBuilderCanvas
-      <DropArea handleElementDropped={handleAddFormElement} />
-      {formElements.map((formDataElement: FormElementType) => {
-        const id = formDataElement.id;
-        return (
-          <div key={formDataElement.id}>
-            <FormElement type={formDataElement.type} id={id} />
-            <DropArea prevId={id} handleElementDropped={handleAddFormElement} />
-          </div>
-        );
-      })}
+      <FormElementsList id={Date.now().toString()} rows={formElements} />
     </div>
   );
 };

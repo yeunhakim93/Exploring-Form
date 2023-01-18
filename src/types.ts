@@ -11,7 +11,7 @@ export type FormElementContainerType = Omit<
   "required type"
 > & {
   type: "container";
-  columns: Array<FormElementType | FormElementContainerType>;
+  columns: Array<FormElementType | FormElementContainerType>[];
 };
 
 export type FormElementsListType = {
