@@ -3,7 +3,7 @@ type Props = {
   id: string;
   body: string;
 };
-export const FormShortAnswerElement: React.FC<Props> = () => {
+export const FormShortAnswerElement: React.FC<Props> = ({ id, body }) => {
   return (
     <div
       style={{
@@ -16,7 +16,7 @@ export const FormShortAnswerElement: React.FC<Props> = () => {
         gap: "10px",
       }}
     >
-      <label htmlFor="a123">Is this a short answer element?</label>
+      <label htmlFor="a123">Is this a short answer element? id:{id}</label>
       <input name="a123" id="a123"></input>
     </div>
   );

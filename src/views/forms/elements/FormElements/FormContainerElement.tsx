@@ -13,6 +13,7 @@ type FormContainerElementProps = {
 
 export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   id,
+  body,
   columns: propColumns,
 }) => {
   // using 3 columns as default - could be changed later
@@ -36,41 +37,52 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#f7ede2",
-        border: "1px grey solid",
-        margin: "10px",
-        padding: "10px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
-      {columns.map((columnElement, i) => {
-        if (!columnElement.length) {
-          return (
-            <div
-              style={{
-                backgroundColor: "#f7ede2",
-                border: "1px grey solid",
-                margin: "10px",
-                padding: "10px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "30%",
-              }}
-            >
-              Add your element here
-              <DropArea handleElementDropped={handleElementDropped} index={i} />
-            </div>
-          );
-        } else {
-          return (
-            <FormElementsList id={Date.now().toString()} rows={columnElement} />
-          );
-        }
-      })}
-    </div>
+    <>
+      container id: {id}
+      <div
+        style={{
+          backgroundColor: "#f7ede2",
+          border: "1px grey solid",
+          margin: "10px",
+          padding: "10px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {columns.map((columnElement, i) => {
+          if (!columnElement.length) {
+            return (
+              <div
+                key={i}
+                style={{
+                  backgroundColor: "#f7ede2",
+                  border: "1px grey solid",
+                  margin: "10px",
+                  padding: "10px",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "30%",
+                }}
+              >
+                Add your element here
+                <DropArea
+                  handleElementDropped={handleElementDropped}
+                  index={i}
+                />
+              </div>
+            );
+          } else {
+            return (
+              <FormElementsList
+                key={i}
+                id={Date.now().toString()}
+                rows={columnElement}
+              />
+            );
+          }
+        })}
+      </div>
+    </>
   );
 };

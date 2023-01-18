@@ -1,51 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { FormElementContainerType, FormElementType } from "../../../../types";
 import { FormElement, FormElementsList } from "../../elements";
-
 import { DropArea } from "../../elements/Components/DropArea";
+
+const data = require("../../../../InitialData.json");
 
 type Props = {
   id?: string;
 };
 
 export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
-  const [formElements, setFormElements] = useState<
-    (FormElementType | FormElementContainerType)[]
-  >([
-    { id: "asdf", type: "checkbox", body: "<h1> temp </h1>", color: "red" },
-    { id: "sdfg", type: "shortAnswer", body: "<h1> temp </h1>", color: "red" },
-    {
-      id: "asdfasdf",
-      type: "container",
-      body: "<h1> temp </h1>",
-      columns: [
-        [
-          {
-            id: "asdf123",
-            type: "checkbox",
-            body: "<h1> temp </h1>",
-            color: "red",
-          },
-          {
-            id: "asdf234",
-            type: "shortAnswer",
-            body: "<h1> temp </h1>",
-            color: "red",
-          },
-        ],
-        [],
-        [
-          {
-            id: "asdf346",
-            type: "checkbox",
-            body: "<h1> temp </h1>",
-            color: "red",
-          },
-        ],
-      ],
-    },
-  ]);
+  const [formElements, setFormElements] =
+    useState<(FormElementType | FormElementContainerType)[]>(data);
 
   return (
     <div
