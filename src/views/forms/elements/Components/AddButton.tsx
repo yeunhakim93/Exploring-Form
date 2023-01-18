@@ -9,11 +9,7 @@ export const AddButton: React.FC<Props> = ({ type }) => {
   const { dispatchAddFormElement } = useFormBuilder();
 
   const handleAddClicked = () => {
-    dispatchAddFormElement({
-      id: Date.now().toString(),
-      type,
-      body: "<h1>Place holder</h1>",
-    });
+    // dispatch
   };
 
   return (

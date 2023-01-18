@@ -82,7 +82,7 @@ export const {
 
 function adjecencify(inputDataFromDb: Array<FormElementType>) {
   const returnObject: { [key: string]: any } = {};
-  returnObject.children = inputDataFromDb.map((item) => item.ID);
+  returnObject.children = inputDataFromDb.map((item) => item.id);
 
   const iterate = ({
     data,
