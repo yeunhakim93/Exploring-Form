@@ -15,11 +15,17 @@ export const FormElementsList: React.FC<Props> = ({
 }) => {
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
-  const handleElementDropped = (
-    newElement: FormElementType,
-    prevId?: string, // this is the id of element that's directly above the drop zone. if the drop zone is the top drop zone, this is null
-    index?: number // this is only used if the FormElementsList belongs in a container
-  ) => {
+  const handleElementDropped = ({
+    newElement,
+    prevId,
+    index,
+    parent,
+  }: {
+    newElement: FormElementType;
+    prevId?: string; // this is the id of element that's directly above the drop zone. if the drop zone is the top drop zone, this is null
+    index?: number; // this is only used if the FormElementsList belongs in a container
+    parent?: string;
+  }) => {
     if (!prevId) {
       // the drop zone is the top drop zone
       setElementList((elementList) => [newElement, ...elementList]);

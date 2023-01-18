@@ -11,8 +11,33 @@ type Props = {
 };
 
 export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
-  const [formElements, setFormElements] =
-    useState<(FormElementType | FormElementContainerType)[]>(data);
+  const [formElements, setFormElements] = useState<
+    (FormElementType | FormElementContainerType)[]
+  >([
+    { id: "asdf", type: "checkbox", body: "<h1> temp </h1>", color: "red" },
+    { id: "sdfg", type: "shortAnswer", body: "<h1> temp </h1>", color: "red" },
+  ]);
+
+  const handleAddFormElement = ({
+    newElement,
+    prevId,
+  }: {
+    newElement: FormElementType;
+    prevId?: string;
+  }) => {
+    setFormElements((prevFormElements) => {
+      let prevElementIndex = prevFormElements.findIndex(
+        (element) => element.id === prevId
+      );
+
+      // I want this to be cleaner :(
+      return [
+        ...prevFormElements.slice(0, prevElementIndex + 1),
+        newElement,
+        ...prevFormElements.slice(prevElementIndex + 1),
+      ];
+    });
+  };
 
   return (
     <div

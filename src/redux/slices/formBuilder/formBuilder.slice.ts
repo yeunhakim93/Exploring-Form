@@ -1,41 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  FormData,
+  FormElementType,
+  FormAdjacencifiedData,
+} from "../../../types";
 import type { RootState } from "../../store";
 
-export type FormElementType = {
-  id: string;
-  type: "shortAnswer" | "checkbox" | "container";
-  body: string;
-  color?: string;
-  required?: boolean;
+const initialFormData: any = {
+  brandId: "asdf123",
+  kind: "contract",
+  data: [
+    { id: "asdf", type: "checkbox", body: "<h1> temp </h1>", color: "red" },
+    {
+      id: "sdfg",
+      type: "shortAnswer",
+      body: "<h1> temp </h1>",
+      color: "red",
+    },
+  ],
 };
 
-export interface FormAdjacencyList {
-  [key: string]: {
-    children?: Array<Array<string>>;
-    id: string;
-    type: string;
-  };
-}
-
-export type FormElementContainerType = Omit<
-  FormElementType,
-  "required type"
-> & {
-  type: "container";
-  columns: Array<FormElementType | FormElementContainerType>;
-};
-
-export type FormData = {
-  brandId: string;
-  kind: "contract" | "subcontract" | "proposal" | "questionnaire" | "lead";
-  data: Array<FormElementType>;
-  // data: Array<FormElementType | FormElementContainerType>;
-};
-
-const initialState: FormData = {
+const initialState = {
   brandId: "formteam",
   kind: "questionnaire",
-  data: [],
+  data: adjecencify(initialFormData.data),
 };
 
 export const formBuilderSlice = createSlice({
@@ -44,9 +32,15 @@ export const formBuilderSlice = createSlice({
   reducers: {
     addFormElement(
       state,
-      action: PayloadAction<{ element: FormElementType; parentId?: string }>
+      action: PayloadAction<{
+        element: FormElementType;
+        parentId?: string;
+        index?: number;
+        prevId?: string;
+      }>
     ) {
-      state.data.push(action.payload.element);
+      console.log("STATE: ", state.data, "\n action: ", action);
+      const { element, parentId, index, prevId } = action.payload;
     },
     removeFormElement(
       state,
@@ -80,7 +74,9 @@ export const {
   submitForm,
 } = formBuilderSlice.actions;
 
-function adjecencify(inputDataFromDb: Array<FormElementType>) {
+function adjecencify(
+  inputDataFromDb: Array<FormElementType>
+): FormAdjacencifiedData {
   const returnObject: { [key: string]: any } = {};
   returnObject.children = inputDataFromDb.map((item) => item.id);
 
@@ -122,7 +118,7 @@ function adjecencify(inputDataFromDb: Array<FormElementType>) {
   
           */
           finalChildren.push(
-            nestedColumn.map((nestedItem: { ID: string }) => nestedItem.ID)
+            nestedColumn.map((nestedItem: { id: string }) => nestedItem.id)
           );
 
           /*
@@ -147,7 +143,7 @@ function adjecencify(inputDataFromDb: Array<FormElementType>) {
       */
 
       if (parentId) {
-        returnObject[item.ID].parent = {
+        returnObject[item.id].parent = {
           id: parentId,
         };
         if (idx !== undefined) returnObject[item.id].parent.idx = idx;
@@ -159,7 +155,7 @@ function adjecencify(inputDataFromDb: Array<FormElementType>) {
   return returnObject;
 }
 
-function unAdjecencify(data: FormAdjacencyList) {
+export function unAdjecencify(data: FormAdjacencifiedData) {
   const parse = (children: any) => {
     const currArray = [];
 
@@ -175,5 +171,5 @@ function unAdjecencify(data: FormAdjacencyList) {
     return currArray;
   };
 
-  return (data.children as any).map((item: string) => parse(item)).flat();
+  return parse(data.children).flat();
 }

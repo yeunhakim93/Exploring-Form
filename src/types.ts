@@ -24,3 +24,12 @@ export type FormData = {
   kind: "contract" | "subcontract" | "proposal" | "questionnaire" | "lead";
   data: Array<FormElementsListType>;
 };
+
+export type FormAdjacencifiedData = {
+  [key: string]: {
+    type: "shortAnswer" | "checkbox" | "container";
+    color?: string;
+    body?: string;
+    children?: Array<Array<string>>;
+  };
+};

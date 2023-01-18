@@ -11,20 +11,27 @@ type itemType = {
 };
 
 type DropAreaProps = {
+  parent?: string;
   prevId?: string; // this is the id of an element that contains the drop area
   index?: number;
-  handleElementDropped?: (
-    newElement: FormElementType,
-    prevId?: string,
-    index?: number,
-    columns?: []
-  ) => void;
+  handleElementDropped: ({
+    newElement,
+    prevId,
+    index,
+    parent,
+  }: {
+    newElement: FormElementType;
+    prevId?: string;
+    index?: number;
+    parent?: string;
+  }) => void;
 };
 
 export const DropArea: React.FC<DropAreaProps> = ({
   handleElementDropped,
   prevId,
   index,
+  parent,
 }) => {
   const { dispatchAddFormElement } = useFormBuilder();
 
@@ -41,9 +48,23 @@ export const DropArea: React.FC<DropAreaProps> = ({
           body: "<h1>Place holder</h1>",
           ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
         };
+        handleElementDropped &&
+          handleElementDropped({ newElement: temp, prevId, index, parent });
+        /*
 
-        handleElementDropped && handleElementDropped(temp, prevId, index);
+          prevId: Id of the element directly above 
+          the element being inserted. 
+
+          index: location within the array
+
+        */
         // dispatch
+        dispatchAddFormElement({
+          formElement: temp,
+          parentId: parent,
+          index,
+          prevId,
+        });
       },
       collect: (monitor) => ({
         isOver: monitor.isOver(),

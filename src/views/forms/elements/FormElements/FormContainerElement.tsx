@@ -21,11 +21,17 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   const [columns, setColumns] =
     useState<(FormElementType | FormElementContainerType)[][]>(propColumns);
 
-  const handleElementDropped = (
-    newElement: FormElementType,
-    prevId?: string,
-    index?: number
-  ) => {
+  const handleElementDropped = ({
+    newElement,
+    prevId,
+    index,
+    parent,
+  }: {
+    newElement: FormElementType;
+    prevId?: string;
+    index?: number;
+    parent?: string;
+  }) => {
     if (index !== undefined)
       // TODO: will.. format this better
       // this is "replacing"
