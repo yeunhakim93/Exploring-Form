@@ -9,6 +9,14 @@ export type FormElementType = {
   required?: boolean;
 };
 
+export interface FormAdjacencyList {
+  [key: string]: {
+    children?: Array<Array<string>>;
+    id: string;
+    type: string;
+  };
+}
+
 export type FormElementContainerType = Omit<
   FormElementType,
   "required type"
@@ -72,65 +80,100 @@ export const {
   submitForm,
 } = formBuilderSlice.actions;
 
-const returnObject = {};
-// function adjecencify({ data, parentId, idx }) {
+function adjecencify(inputDataFromDb: Array<FormElementType>) {
+  const returnObject: { [key: string]: any } = {};
+  returnObject.children = inputDataFromDb.map((item) => item.ID);
 
-//   /*
+  const iterate = ({
+    data,
+    parentId,
+    idx,
+  }: {
+    data: any;
+    parentId?: number;
+    idx?: number;
+  }) => {
+    /*
+  
+      Loop of array overall
+      either columns subArrays, or
+      data overall
+  
+    */
 
-//     Loop of array overall
-//     either columns subArrays, or
-//     data overall
+    for (const item of data) {
+      returnObject[item.id] = { type: item.type };
 
-//   */
+      if (item.columns) {
+        let finalChildren = [];
 
-//   for (const item of data) {
-//     returnObject[item.id] = { type: item.type }
+        /*
+  
+          Loop over columns items
+  
+        */
+        for (let i = 0; i < item.columns.length; i++) {
+          let nestedColumn = item.columns[i];
 
-//     if (item.columns) {
-//       let finalChildren = []
+          /*
+  
+            Traverses all children and returns
+            their ids
+  
+          */
+          finalChildren.push(
+            nestedColumn.map((nestedItem: { ID: string }) => nestedItem.ID)
+          );
 
-//       /*
+          /*
+  
+            Call the function on each columns
+            sub-array
+  
+          */
 
-//         Loop over columns items
+          iterate({ data: nestedColumn, parentId: item.id, idx: i });
+        }
 
-//       */
-//       for (let i = 0; i < item.columns.length; i++) {
-//         nestedColumn = item.columns[i]
+        returnObject[item.id].children = finalChildren;
+      }
 
-//         /*
+      /*
+  
+        Associate nested item
+        with its parent, and its
+        array index on children
+  
+      */
 
-//           Traverses all children and returns
-//           their ids
+      if (parentId) {
+        returnObject[item.ID].parent = {
+          id: parentId,
+        };
+        if (idx !== undefined) returnObject[item.id].parent.idx = idx;
+      }
+    }
+  };
 
-//         */
-//         finalChildren.push(nestedColumn.map((nestedItem) => nestedItem.id))
+  iterate({ data: inputDataFromDb });
+  return returnObject;
+}
 
-//         /*
+function unAdjecencify(data: FormAdjacencyList) {
+  const parse = (children: any) => {
+    const currArray = [];
 
-//           Call the function on each columns
-//           sub-array
+    for (const childId of children) {
+      const currNode = { type: data[childId].type, id: childId };
+      if (data[childId]?.children) {
+        (currNode as any).columns = (data[childId] as any).children.map(
+          (item: any) => parse(item)
+        );
+      }
+      currArray.push(currNode);
+    }
+    return currArray;
+  };
 
-//         */
-
-//         adjecencify({ data: nestedColumn, parentId: item.id, idx: i })
-//       }
-
-//       returnObject[item.id].children = finalChildren
-//     }
-
-//     /*
-
-//       Associate nested item
-//       with its parent, and its
-//       array index on children
-
-//     */
-
-//     if (parentId) {
-//       returnObject[item.id].parent = {
-//         id: parentId,
-//       }
-//       if (idx !== undefined) returnObject[item.id].parent.idx = idx
-//     }
-//   }
-// }
+  return (data.children as any).map((item: string) => parse(item)).flat();
+}
