@@ -1,8 +1,10 @@
 import * as React from "react";
+
 type Props = {
   id: string;
   body: string;
 };
+
 export const FormShortAnswerElement: React.FC<Props> = ({ id, body }) => {
   return (
     <div
@@ -16,7 +18,11 @@ export const FormShortAnswerElement: React.FC<Props> = ({ id, body }) => {
         gap: "10px",
       }}
     >
-      <label htmlFor={id}>Is this a short answer element? id:{id}</label>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: body + " <small>id:" + id + "</small>",
+        }}
+      ></div>
       <input name={id} id={id}></input>
     </div>
   );

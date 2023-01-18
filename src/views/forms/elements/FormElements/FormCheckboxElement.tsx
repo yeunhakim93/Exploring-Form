@@ -18,7 +18,11 @@ export const FormCheckboxElement: React.FC<Props> = ({ id, body }) => {
         gap: "10px",
       }}
     >
-      checkbox id:{id}
+      <div
+        dangerouslySetInnerHTML={{
+          __html: body + " <small>id:" + id + "</small>",
+        }}
+      ></div>
       <input type="checkbox"></input>
     </div>
   );

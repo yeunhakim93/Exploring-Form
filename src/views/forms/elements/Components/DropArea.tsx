@@ -42,14 +42,16 @@ export const DropArea: React.FC<DropAreaProps> = ({
         return true;
       },
       drop: (item: itemType, monitor) => {
+        console.log(item);
         const temp = {
           id: Date.now().toString(),
           type: item.type,
-          body: "<h1>Place holder</h1>",
+          body: "<div>New element!</div>",
           ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
         };
         handleElementDropped &&
           handleElementDropped({ newElement: temp, prevId, index, parent });
+
         /*
 
           prevId: Id of the element directly above 

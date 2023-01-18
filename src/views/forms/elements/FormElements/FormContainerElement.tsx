@@ -43,14 +43,23 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   };
 
   return (
-    <>
-      container id: {id}
+    <div
+      style={{
+        backgroundColor: "#f7ede2",
+        border: "1px grey solid",
+        margin: "10px",
+        padding: "10px",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <div
+        dangerouslySetInnerHTML={{
+          __html: body + " <small>id:" + id + "</small>",
+        }}
+      ></div>
       <div
         style={{
-          backgroundColor: "#f7ede2",
-          border: "1px grey solid",
-          margin: "10px",
-          padding: "10px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -92,6 +101,6 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
           }
         })}
       </div>
-    </>
+    </div>
   );
 };
