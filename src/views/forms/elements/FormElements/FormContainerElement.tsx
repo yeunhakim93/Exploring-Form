@@ -75,6 +75,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
                 <DropArea
                   handleElementDropped={handleElementDropped}
                   index={i}
+                  parent={id}
                 />
               </div>
             );
@@ -84,6 +85,8 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
                 key={i}
                 id={Date.now().toString()}
                 rows={columnElement}
+                parentId={id}
+                containerIndex={i}
               />
             );
           }

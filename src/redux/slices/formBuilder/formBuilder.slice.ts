@@ -39,8 +39,36 @@ export const formBuilderSlice = createSlice({
         prevId?: string;
       }>
     ) {
-      console.log("STATE: ", state.data, "\n action: ", action);
+      /*
+    
+        Element: the actual element to add
+        ParentId: the div that the element belongs to
+        Index: The subArray within children to add the element to
+        PrevId: The id on the element directly above the new element
+    
+      */
       const { element, parentId, index, prevId } = action.payload;
+      console.log(
+        "element: ",
+        element,
+        "\nparentId: ",
+        parentId,
+        "\nindex: ",
+        index,
+        "\nprevId: ",
+        prevId
+      );
+      if (parentId && state.data.parentId) {
+        if (state.data[parentId].children) {
+          if (index) {
+            if (prevId) {
+              let currentIndex = (
+                state.data[parentId].children as Array<Array<string>>
+              )[index].indexOf(prevId);
+            }
+          }
+        }
+      }
     },
     removeFormElement(
       state,

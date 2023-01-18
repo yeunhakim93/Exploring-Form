@@ -29,7 +29,11 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
       }}
     >
       FormBuilderCanvas
-      <FormElementsList id={Date.now().toString()} rows={formElements} />
+      <FormElementsList
+        id={Date.now().toString()}
+        rows={formElements}
+        parentId={id}
+      />
     </div>
   );
 };
