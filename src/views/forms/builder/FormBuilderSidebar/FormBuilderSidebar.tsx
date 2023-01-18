@@ -1,3 +1,4 @@
+import React from "react";
 import { FormIcon } from "../../elements/FormIcons";
 
 const elementArr = ["checkbox", "shortAnswer", "container"] as const;
