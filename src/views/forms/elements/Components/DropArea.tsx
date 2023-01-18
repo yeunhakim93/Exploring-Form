@@ -16,7 +16,8 @@ type DropAreaProps = {
   handleElementDropped?: (
     newElement: FormElementType,
     prevId?: string,
-    index?: number
+    index?: number,
+    columns?: []
   ) => void;
 };
 
@@ -38,7 +39,9 @@ export const DropArea: React.FC<DropAreaProps> = ({
           id: Date.now().toString(),
           type: item.type,
           body: "<h1>Place holder</h1>",
+          ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
         };
+
         handleElementDropped && handleElementDropped(temp, prevId, index);
         // dispatch
       },

@@ -1,11 +1,11 @@
 import * as React from "react";
 
 type Props = {
-  id?: string;
-  children?: any;
+  id: string;
+  body: string;
 };
 
-export const FormCheckboxElement: React.FC<Props> = () => {
+export const FormCheckboxElement: React.FC<Props> = ({ id, body }) => {
   return (
     <div
       style={{
@@ -18,7 +18,7 @@ export const FormCheckboxElement: React.FC<Props> = () => {
         gap: "10px",
       }}
     >
-      checkbox
+      checkbox id:{id}
       <input type="checkbox"></input>
     </div>
   );
