@@ -16,16 +16,6 @@ const initialFormData: any = {
       type: "shortAnswer",
       body: "<h1> temp </h1>",
       color: "red",
-      columns: [
-        [
-          {
-            id: "fdsa",
-            type: "shortAnswer",
-            body: "<h1> temp </h1>",
-            color: "red",
-          },
-        ],
-      ],
     },
   ],
 };
@@ -50,6 +40,7 @@ export const formBuilderSlice = createSlice({
       }>
     ) {
       console.log("STATE: ", state.data, "\n action: ", action);
+      const { element, parentId, index, prevId } = action.payload;
     },
     removeFormElement(
       state,
@@ -105,13 +96,6 @@ function adjecencify(
       data overall
   
     */
-
-    console.log(
-      "DATA ON ADJACENCIFY: ",
-      data,
-      "\n the return obj: ",
-      returnObject
-    );
 
     for (const item of data) {
       returnObject[item.id] = { type: item.type };
@@ -172,13 +156,10 @@ function adjecencify(
 }
 
 export function unAdjecencify(data: FormAdjacencifiedData) {
-  console.log("WHAT IS THE DATA: ", data);
   const parse = (children: any) => {
-    console.log("WHAT IS CHILDREN: ", children);
     const currArray = [];
 
     for (const childId of children) {
-      console.log("WHAT IS CHILDID: ", childId);
       const currNode = { type: data[childId].type, id: childId };
       if (data[childId]?.children) {
         (currNode as any).columns = (data[childId] as any).children.map(
