@@ -1,7 +1,7 @@
 import * as React from "react";
 type Props = {
-  id?: string;
-  children?: any;
+  id: string;
+  body: string;
 };
 export const FormShortAnswerElement: React.FC<Props> = () => {
   return (

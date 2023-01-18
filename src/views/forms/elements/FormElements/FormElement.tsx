@@ -1,4 +1,5 @@
 import * as React from "react";
+import { FormElementType, FormElementContainerType } from "../../../../types";
 import {
   FormCheckboxElement,
   FormShortAnswerElement,
@@ -6,30 +7,22 @@ import {
 } from "./";
 
 type Props = {
-  type: "container" | "shortAnswer" | "checkbox";
-  body?: "string";
-  id: string;
-  index?: "number";
+  elementData: {
+    id: string;
+    type: "container" | "shortAnswer" | "checkbox";
+    body: string;
+    columns?: (FormElementType | FormElementContainerType)[][];
+  };
+  index?: number; // only passed in if the element belongs in a container
 };
-export const FormElement: React.FC<Props> = ({ type, id, body }) => {
+export const FormElement: React.FC<Props> = ({ elementData }) => {
+  const { type, id, body, columns } = elementData;
   if (type === "checkbox") {
-    return (
-      <div key={id}>
-        <FormCheckboxElement id={id}>{body}</FormCheckboxElement>
-      </div>
-    );
+    return <FormCheckboxElement id={id} body={body} />;
   } else if (type === "shortAnswer") {
-    return (
-      <div key={id}>
-        <FormShortAnswerElement id={id}>{body}</FormShortAnswerElement>
-      </div>
-    );
+    return <FormShortAnswerElement id={id} body={body} />;
   } else if (type === "container") {
-    return (
-      <div key={id}>
-        <FormContainerElement id={id}>{body}</FormContainerElement>
-      </div>
-    );
+    return <FormContainerElement id={id} body={body} columns={columns} />;
   }
   return <></>;
 };

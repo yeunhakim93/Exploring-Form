@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import { FormElementContainerType, FormElementType } from "../../../../types";
-import { FormElement } from "../../elements";
+import { FormElement, FormElementsList } from "../../elements";
 
 import { DropArea } from "../../elements/Components/DropArea";
 
@@ -15,25 +15,37 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
   >([
     { id: "asdf", type: "checkbox", body: "<h1> temp </h1>", color: "red" },
     { id: "sdfg", type: "shortAnswer", body: "<h1> temp </h1>", color: "red" },
+    {
+      id: "asdfasdf",
+      type: "container",
+      body: "<h1> temp </h1>",
+      columns: [
+        [
+          {
+            id: "asdf123",
+            type: "checkbox",
+            body: "<h1> temp </h1>",
+            color: "red",
+          },
+          {
+            id: "asdf234",
+            type: "shortAnswer",
+            body: "<h1> temp </h1>",
+            color: "red",
+          },
+        ],
+        [],
+        [
+          {
+            id: "asdf346",
+            type: "checkbox",
+            body: "<h1> temp </h1>",
+            color: "red",
+          },
+        ],
+      ],
+    },
   ]);
-
-  const handleAddFormElement = (
-    newElement: FormElementType,
-    prevElementId?: string
-  ) => {
-    setFormElements((prevFormElements) => {
-      let prevElementIndex = prevFormElements.findIndex(
-        (element) => element.id === prevElementId
-      );
-
-      // I want this to be cleaner :(
-      return [
-        ...prevFormElements.slice(0, prevElementIndex + 1),
-        newElement,
-        ...prevFormElements.slice(prevElementIndex + 1),
-      ];
-    });
-  };
 
   return (
     <div
@@ -50,16 +62,7 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
       }}
     >
       FormBuilderCanvas
-      <DropArea handleElementDropped={handleAddFormElement} />
-      {formElements.map((formDataElement: FormElementType) => {
-        const id = formDataElement.id;
-        return (
-          <div key={formDataElement.id}>
-            <FormElement type={formDataElement.type} id={id} />
-            <DropArea prevId={id} handleElementDropped={handleAddFormElement} />
-          </div>
-        );
-      })}
+      <FormElementsList id={Date.now().toString()} rows={formElements} />
     </div>
   );
 };
