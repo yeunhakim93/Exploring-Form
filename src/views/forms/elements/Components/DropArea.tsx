@@ -43,6 +43,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
         return true;
       },
       drop: (item: itemType, monitor) => {
+        // element being moved to another list (i.e., parent is not the same)
         const newElement = {
           id: item.id ? item.id : Date.now().toString(),
           type: item.type,

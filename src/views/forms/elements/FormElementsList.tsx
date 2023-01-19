@@ -18,6 +18,8 @@ export const FormElementsList: React.FC<Props> = ({
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
 
+  // This function is used to handle element being dropped (added) to the dropzone in the list.
+  // This will NOT handle the elements being moved around within the list.
   const handleElementDropped = ({
     newElement,
     prevId,
@@ -32,35 +34,32 @@ export const FormElementsList: React.FC<Props> = ({
     if (!prevId) {
       // the drop zone is the top drop zone
       setElementList((elementList) => [newElement, ...elementList]);
-    } else if (index !== undefined) {
-      // FormElementsList belongs in a container
-      setElementList((elementList) => [
-        ...elementList.slice(0, index + 1),
-        newElement,
-        ...elementList.slice(index + 1),
-      ]);
     } else {
-      // FormElementsList does not belong in a container
-      let prevElementIndex = elementList.findIndex(
-        (element) => element.id === prevId
-      );
-      setElementList((prevElementList) => [
-        ...prevElementList.slice(0, prevElementIndex + 1),
+      let indexToInsert =
+        elementList.findIndex((element) => element.id === prevId) + 1;
+      setElementList((elementList) => [
+        ...elementList.slice(0, indexToInsert),
         newElement,
-        ...prevElementList.slice(prevElementIndex + 1),
+        ...elementList.slice(indexToInsert),
       ]);
     }
   };
 
-  // This function removes an element from a list if the element is "moved" to another list or container.
+  // This function removes an element from a list if the element is "moved" to another list.
   const handleElementMoved = (elementIdToRemove: string) => {
     setElementList((prevElementList) =>
       prevElementList.filter((element) => element.id !== elementIdToRemove)
     );
   };
   console.log("CONTAINER INDEX: ", containerIndex);
+  // This function handles the element being moved within the list
+  const handleElementReorder = (elementIdToRemove: string) => {
+    setElementList((prevElementList) =>
+      prevElementList.filter((element) => element.id !== elementIdToRemove)
+    );
+  };
 
-  return (
+  return elementList.length > 0 ? (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <DropArea
         handleElementDropped={handleElementDropped}
@@ -84,6 +83,27 @@ export const FormElementsList: React.FC<Props> = ({
           </div>
         );
       })}
+    </div>
+  ) : (
+    <div
+      style={{
+        backgroundColor: "#f7ede2",
+        border: "1px white solid",
+        margin: "10px",
+        padding: "10px",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "30%",
+        borderRadius: "5px",
+        textAlign: "center",
+      }}
+    >
+      Add your element here
+      <DropArea
+        handleElementDropped={handleElementDropped}
+        index={containerIndex}
+        parent={id}
+      />
     </div>
   );
 };
