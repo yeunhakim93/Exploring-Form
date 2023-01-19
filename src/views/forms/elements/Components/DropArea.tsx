@@ -8,6 +8,7 @@ type itemType = {
   id: string;
   type: "container" | "checkbox" | "shortAnswer";
   body: string;
+  onMoveElement: () => void;
 };
 
 type DropAreaProps = {
@@ -42,15 +43,16 @@ export const DropArea: React.FC<DropAreaProps> = ({
         return true;
       },
       drop: (item: itemType, monitor) => {
-        console.log(item);
-        const temp = {
-          id: Date.now().toString(),
+        const newElement = {
+          id: item.id ? item.id : Date.now().toString(),
           type: item.type,
-          body: "<div>New element!</div>",
+          body: item.body ? item.body : "<div>New element!</div>",
           ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
         };
+        item.onMoveElement && item.onMoveElement();
+
         handleElementDropped &&
-          handleElementDropped({ newElement: temp, prevId, index, parent });
+          handleElementDropped({ newElement, prevId, index, parent });
 
         /*
 
@@ -62,7 +64,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
         */
         // dispatch
         dispatchAddFormElement({
-          formElement: temp,
+          formElement: newElement,
           parentId: parent,
           index,
           prevId,

@@ -9,12 +9,14 @@ type FormContainerElementProps = {
   id: string;
   body: string;
   columns?: any;
+  handleElementMoved: (id: string) => void;
 };
 
 export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   id,
   body,
   columns: propColumns,
+  handleElementMoved,
 }) => {
   // using 3 columns as default - could be changed later
   const [columnsNumber, setColumnsNumber] = useState(3);
@@ -41,6 +43,13 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
         ...columns.slice(index + 1),
       ]);
   };
+  const handleContainerElementMoved = (id: string) => {
+    // My brain is fried this is for tomorrow
+  };
+  const onMoveElement = () => {
+    handleElementMoved(id);
+    handleContainerElementMoved(id);
+  };
 
   return (
     <div
@@ -51,6 +60,8 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
         padding: "10px",
         alignItems: "center",
         justifyContent: "space-between",
+        borderRadius: "5px",
+        boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
       }}
     >
       <div
@@ -72,12 +83,14 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
                 key={i}
                 style={{
                   backgroundColor: "#f7ede2",
-                  border: "1px grey solid",
+                  border: "1px white solid",
                   margin: "10px",
                   padding: "10px",
                   alignItems: "center",
                   justifyContent: "space-between",
                   width: "30%",
+                  borderRadius: "5px",
+                  textAlign: "center",
                 }}
               >
                 Add your element here
