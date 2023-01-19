@@ -4,20 +4,34 @@ import { useDrag } from "react-dnd";
 type Props = {
   id: string;
   body: string;
+  listId: string;
   handleElementMoved: (id: string) => void;
+  handleElementReordered: (id: string, prevId: string) => void;
 };
 
 export const FormShortAnswerElement: React.FC<Props> = ({
   id,
   body,
+  listId,
   handleElementMoved,
+  handleElementReordered,
 }) => {
   const onMoveElement = () => {
     handleElementMoved(id);
   };
+  const onReorderElement = (prevId: string) => {
+    handleElementReordered(id, prevId);
+  };
   const [, drag] = useDrag(() => ({
     type: "shortAnswerElement",
-    item: { type: "shortAnswer", id, body, onMoveElement },
+    item: {
+      type: "shortAnswer",
+      id,
+      body,
+      listId,
+      onMoveElement,
+      onReorderElement,
+    },
   }));
   return (
     <div

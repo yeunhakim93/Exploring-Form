@@ -14,11 +14,16 @@ type Props = {
     columns?: (FormElementType | FormElementContainerType)[][];
   };
   index?: number; // only passed in if the element belongs in a container
+  listId: string;
   handleElementMoved: (id: string) => void;
+  handleElementReordered: (id: string, prevId: string) => void;
 };
 export const FormElement: React.FC<Props> = ({
   elementData,
+  index,
+  listId,
   handleElementMoved,
+  handleElementReordered,
 }) => {
   const { type, id, body, columns } = elementData;
   if (type === "checkbox") {
@@ -26,7 +31,9 @@ export const FormElement: React.FC<Props> = ({
       <FormCheckboxElement
         id={id}
         body={body}
+        listId={listId}
         handleElementMoved={handleElementMoved}
+        handleElementReordered={handleElementReordered}
       />
     );
   } else if (type === "shortAnswer") {
@@ -34,7 +41,9 @@ export const FormElement: React.FC<Props> = ({
       <FormShortAnswerElement
         id={id}
         body={body}
+        listId={listId}
         handleElementMoved={handleElementMoved}
+        handleElementReordered={handleElementReordered}
       />
     );
   } else if (type === "container") {
@@ -43,7 +52,9 @@ export const FormElement: React.FC<Props> = ({
         id={id}
         body={body}
         columns={columns}
+        listId={listId}
         handleElementMoved={handleElementMoved}
+        handleElementReordered={handleElementReordered}
       />
     );
   }
