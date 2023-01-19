@@ -1,13 +1,27 @@
 import * as React from "react";
+import { useDrag } from "react-dnd";
 
 type Props = {
   id: string;
   body: string;
+  handleElementMoved: (id: string) => void;
 };
 
-export const FormCheckboxElement: React.FC<Props> = ({ id, body }) => {
+export const FormCheckboxElement: React.FC<Props> = ({
+  id,
+  body,
+  handleElementMoved,
+}) => {
+  const onMoveElement = () => {
+    handleElementMoved(id);
+  };
+  const [, drag] = useDrag(() => ({
+    type: "checkboxElement",
+    item: { type: "checkbox", id, body, onMoveElement },
+  }));
   return (
     <div
+      ref={drag}
       style={{
         margin: "10px",
         backgroundColor: "#f5cac3",
@@ -16,9 +30,15 @@ export const FormCheckboxElement: React.FC<Props> = ({ id, body }) => {
         display: "flex",
         alignItems: "center",
         gap: "10px",
+        borderRadius: "5px",
+        boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
       }}
     >
-      checkbox id:{id}
+      <div
+        dangerouslySetInnerHTML={{
+          __html: body + " <small>id:" + id + "</small>",
+        }}
+      ></div>
       <input type="checkbox"></input>
     </div>
   );

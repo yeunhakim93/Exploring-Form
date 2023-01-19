@@ -2,32 +2,32 @@
   {
     "id": "asdf",
     "type": "checkbox",
-    "body": "<h1> temp </h1>",
-    "color": "red"
+    "body": "<div>Is this a <strong>checkbox</strong>?</div>",
+    "color": "#f5cac3"
   },
   {
     "id": "sdfg",
     "type": "shortAnswer",
-    "body": "<h1> temp </h1>",
-    "color": "red"
+    "body": "<div>Is this a <strong>short answer</strong>?</div>",
+    "color": "#84a59d"
   },
   {
     "id": "asdfasdf",
     "type": "container",
-    "body": "<h1> temp </h1>",
+    "body": "<div>This is a <strong>container</strong>!</div>",
     "columns": [
       [
         {
           "id": "asdf123",
           "type": "checkbox",
-          "body": "<h1> temp </h1>",
-          "color": "red"
+          "body": "<div>Is this a <strong>checkbox</strong>?</div>",
+          "color": "#f5cac3"
         },
         {
           "id": "asdf234",
           "type": "shortAnswer",
-          "body": "<h1> temp </h1>",
-          "color": "red"
+          "body": "<div>Is this a <strong>short answer</strong>?</div>",
+          "color": "#f5cac3"
         }
       ],
       [],
@@ -35,8 +35,8 @@
         {
           "id": "asdf346",
           "type": "checkbox",
-          "body": "<h1> temp </h1>",
-          "color": "red"
+          "body": "<div>Is this a <strong>checkbox</strong>?</div>",
+          "color": "#f5cac3"
         }
       ]
     ]

@@ -17,6 +17,7 @@ export const FormElementsList: React.FC<Props> = ({
 }) => {
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
+
   const handleElementDropped = ({
     newElement,
     prevId,
@@ -51,6 +52,14 @@ export const FormElementsList: React.FC<Props> = ({
     }
   };
 
+  // This function removes an element from a list if the element is "moved" to another list or container.
+  const handleElementMoved = (elementIdToRemove: string) => {
+    setElementList((prevElementList) =>
+      prevElementList.filter((element) => element.id !== elementIdToRemove)
+    );
+  };
+  console.log("CONTAINER INDEX: ", containerIndex);
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <DropArea
@@ -62,7 +71,10 @@ export const FormElementsList: React.FC<Props> = ({
         let id = elementData.id || Date.now().toString();
         return (
           <div key={id}>
-            <FormElement elementData={{ ...elementData, id }} />
+            <FormElement
+              elementData={{ ...elementData, id }}
+              handleElementMoved={handleElementMoved}
+            />
             <DropArea
               prevId={id}
               handleElementDropped={handleElementDropped}

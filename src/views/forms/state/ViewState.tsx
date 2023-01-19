@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useFormBuilder } from "../../../redux/slices/formBuilder/useFormBuilder";
-import { unAdjecencify } from "../../../redux/slices/formBuilder";
+import { unAdjacencify } from "../../../redux/slices/formBuilder";
 
 const ViewState: React.FC = () => {
   const { formData } = useFormBuilder();
@@ -46,7 +46,7 @@ const ViewState: React.FC = () => {
             margin: "15px",
           }}
         >
-          {JSON.stringify(unAdjecencify(formData), null, 2)}
+          {JSON.stringify(unAdjacencify(formData), null, 2)}
         </pre>
       )}
     </div>
