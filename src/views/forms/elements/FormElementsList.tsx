@@ -51,8 +51,6 @@ export const FormElementsList: React.FC<Props> = ({
     }
   };
 
-  console.log("CONTAINER INDEX: ", containerIndex);
-
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <DropArea

@@ -5,25 +5,12 @@ import {
   FormAdjacencifiedData,
 } from "../../../types";
 import type { RootState } from "../../store";
-
-const initialFormData: any = {
-  brandId: "asdf123",
-  kind: "contract",
-  data: [
-    { id: "asdf", type: "checkbox", body: "<h1> temp </h1>", color: "red" },
-    {
-      id: "sdfg",
-      type: "shortAnswer",
-      body: "<h1> temp </h1>",
-      color: "red",
-    },
-  ],
-};
+const initialFormData = require("../../../InitialData.json");
 
 const initialState = {
   brandId: "formteam",
   kind: "questionnaire",
-  data: adjecencify(initialFormData.data),
+  data: adjecencify(initialFormData),
 };
 
 export const formBuilderSlice = createSlice({
@@ -48,27 +35,86 @@ export const formBuilderSlice = createSlice({
     
       */
       const { element, parentId, index, prevId } = action.payload;
-      console.log(
-        "element: ",
-        element,
-        "\nparentId: ",
-        parentId,
-        "\nindex: ",
-        index,
-        "\nprevId: ",
-        prevId
-      );
-      if (parentId && state.data.parentId) {
+      /*
+
+        Nested updates
+
+      */
+      if (parentId) {
+        let currentList: Array<string> = [];
         if (state.data[parentId].children) {
-          if (index) {
-            if (prevId) {
-              let currentIndex = (
-                state.data[parentId].children as Array<Array<string>>
-              )[index].indexOf(prevId);
-            }
+          if (index !== undefined) {
+            currentList = [
+              ...(state.data[parentId].children as Array<Array<string>>)[index],
+            ];
           }
         }
+        if (index !== undefined) {
+          if (prevId) {
+            const currentIndex = currentList.indexOf(prevId);
+
+            /*
+                
+              If the element is the decendednt of the last child,
+              append the element to the end of the child list
+
+            */
+            if (currentIndex === currentList.length) {
+              (state.data[parentId].children as Array<Array<string>>)[
+                index
+              ].push(element.id);
+            } else {
+              /*
+    
+                If the element is in the middle of the array
+                Add the element directly behind where its
+                previous ancestor lies
+
+              */
+
+              let prefix = currentList.splice(0, currentIndex);
+              prefix.push(element.id);
+              currentList = [...prefix, ...currentList];
+            }
+          } else {
+            /*
+    
+                  If there is no prevId, append item to the front of the list
+    
+                */
+
+            currentList.unshift(element.id);
+          }
+
+          /*
+    
+            Update the parent state array to contain the correct references
+
+          */
+
+          if (state.data[parentId].children as Array<Array<string>>) {
+            (state.data[parentId].children as Array<Array<string>>)[index] =
+              currentList;
+          } else {
+            let newChildMatrix = new Array(3).fill([]);
+
+            newChildMatrix[index] = [element.id];
+            (state.data[parentId].children as Array<Array<string> | null>) =
+              newChildMatrix;
+          }
+        }
+      } else {
+        state.data[element.id] = {
+          ...element,
+        };
+        if (state.data.children) {
+          (state.data as any).children = [
+            ...(state.data as any).children,
+            element.id,
+          ];
+        }
       }
+      state.data[element.id] = { type: element.type, body: element.body };
     },
     removeFormElement(
       state,
@@ -126,7 +172,7 @@ function adjecencify(
     */
 
     for (const item of data) {
-      returnObject[item.id] = { type: item.type };
+      returnObject[item.id] = { type: item.type, body: item.body };
 
       if (item.columns) {
         let finalChildren = [];

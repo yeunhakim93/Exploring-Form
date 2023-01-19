@@ -17,7 +17,6 @@ type Props = {
 };
 export const FormElement: React.FC<Props> = ({ elementData }) => {
   const { type, id, body, columns } = elementData;
-  // console.log("form element", id);
   if (type === "checkbox") {
     return <FormCheckboxElement id={id} body={body} />;
   } else if (type === "shortAnswer") {
