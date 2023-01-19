@@ -9,14 +9,18 @@ type FormContainerElementProps = {
   id: string;
   body: string;
   columns?: any;
+  listId: string;
   handleElementMoved: (id: string) => void;
+  handleElementReordered: (id: string, prevId: string) => void;
 };
 
 export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   id,
   body,
+  listId,
   columns: propColumns,
   handleElementMoved,
+  handleElementReordered,
 }) => {
   // using 3 columns as default - could be changed later
   const [columnsNumber, setColumnsNumber] = useState(3);

@@ -17,6 +17,11 @@ export const FormElementsList: React.FC<Props> = ({
 }) => {
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
+  const [listId] = useState(
+    (Date.now().toString() + Math.floor(Math.random() * 1000).toString()).slice(
+      8
+    )
+  );
 
   // This function is used to handle element being dropped (added) to the dropzone in the list.
   // This will NOT handle the elements being moved around within the list.
@@ -51,12 +56,18 @@ export const FormElementsList: React.FC<Props> = ({
       prevElementList.filter((element) => element.id !== elementIdToRemove)
     );
   };
-  console.log("CONTAINER INDEX: ", containerIndex);
+  // console.log("CONTAINER INDEX: ", containerIndex);
   // This function handles the element being moved within the list
-  const handleElementReorder = (elementIdToRemove: string) => {
-    setElementList((prevElementList) =>
-      prevElementList.filter((element) => element.id !== elementIdToRemove)
+  const handleElementReordered = (elementIdToMove: string, prevId: string) => {
+    // console.log("elementIdToMove", elementIdToMove);
+    // console.log("prevId", prevId);
+    const from = elementList.findIndex(
+      (element) => element.id === elementIdToMove
     );
+    const to = elementList.findIndex((element) => element.id === prevId) + 1;
+
+    // console.log("to", to);
+    // console.log("from", from);
   };
 
   return elementList.length > 0 ? (
@@ -65,20 +76,29 @@ export const FormElementsList: React.FC<Props> = ({
         handleElementDropped={handleElementDropped}
         index={containerIndex}
         parent={parentId}
+        listId={listId}
       />
       {elementList.map((elementData, i) => {
-        let id = elementData.id || Date.now().toString();
+        let id =
+          elementData.id ||
+          listId +
+            Math.floor(Math.random() * 1000)
+              .toString()
+              .slice(8);
         return (
           <div key={id}>
             <FormElement
               elementData={{ ...elementData, id }}
+              listId={listId}
               handleElementMoved={handleElementMoved}
+              handleElementReordered={handleElementReordered}
             />
             <DropArea
               prevId={id}
               handleElementDropped={handleElementDropped}
               index={containerIndex}
               parent={parentId}
+              listId={listId}
             />
           </div>
         );
@@ -103,6 +123,7 @@ export const FormElementsList: React.FC<Props> = ({
         handleElementDropped={handleElementDropped}
         index={containerIndex}
         parent={id}
+        listId={listId}
       />
     </div>
   );

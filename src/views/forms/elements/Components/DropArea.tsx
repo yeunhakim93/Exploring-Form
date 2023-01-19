@@ -8,13 +8,16 @@ type itemType = {
   id: string;
   type: "container" | "checkbox" | "shortAnswer";
   body: string;
+  listId: string;
   onMoveElement: () => void;
+  onReorderElement: (prevId: string | undefined) => void;
 };
 
 type DropAreaProps = {
   parent?: string;
   prevId?: string; // this is the id of an element that contains the drop area
   index?: number;
+  listId: string;
   handleElementDropped: ({
     newElement,
     prevId,
@@ -29,10 +32,11 @@ type DropAreaProps = {
 };
 
 export const DropArea: React.FC<DropAreaProps> = ({
-  handleElementDropped,
+  parent,
   prevId,
   index,
-  parent,
+  listId,
+  handleElementDropped,
 }) => {
   const { dispatchAddFormElement } = useFormBuilder();
 
@@ -43,17 +47,25 @@ export const DropArea: React.FC<DropAreaProps> = ({
         return true;
       },
       drop: (item: itemType, monitor) => {
-        // element being moved to another list (i.e., parent is not the same)
         const newElement = {
           id: item.id ? item.id : Date.now().toString(),
           type: item.type,
           body: item.body ? item.body : "<div>New element!</div>",
           ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
         };
-        item.onMoveElement && item.onMoveElement();
 
-        handleElementDropped &&
-          handleElementDropped({ newElement, prevId, index, parent });
+        //item.listId is the listId of the list that item belongs to,
+        //listId is the listId of the list that the droparea belongs to
+        if (item.listId === listId) {
+          // element being moved within a list (i.e., parent is the same)
+          // TODO: determine if we want to create new element
+          item.onReorderElement(prevId);
+        } else {
+          // element being moved to another list (i.e., parent is not the same)
+          item.onMoveElement && item.onMoveElement();
+          handleElementDropped &&
+            handleElementDropped({ newElement, prevId, index, parent });
+        }
 
         /*
 
@@ -89,6 +101,8 @@ export const DropArea: React.FC<DropAreaProps> = ({
         width: "100%",
         height: isActive ? "20px" : "5px",
       }}
-    ></div>
+    >
+      {listId}
+    </div>
   );
 };

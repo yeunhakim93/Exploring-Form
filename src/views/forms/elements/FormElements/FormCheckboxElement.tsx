@@ -4,20 +4,34 @@ import { useDrag } from "react-dnd";
 type Props = {
   id: string;
   body: string;
+  listId: string;
   handleElementMoved: (id: string) => void;
+  handleElementReordered: (id: string, prevId: string) => void;
 };
 
 export const FormCheckboxElement: React.FC<Props> = ({
   id,
   body,
+  listId,
   handleElementMoved,
+  handleElementReordered,
 }) => {
   const onMoveElement = () => {
     handleElementMoved(id);
   };
+  const onReorderElement = (prevId: string) => {
+    handleElementReordered(id, prevId);
+  };
   const [, drag] = useDrag(() => ({
     type: "checkboxElement",
-    item: { type: "checkbox", id, body, onMoveElement },
+    item: {
+      type: "checkbox",
+      id,
+      body,
+      listId,
+      onMoveElement,
+      onReorderElement,
+    },
   }));
   return (
     <div
