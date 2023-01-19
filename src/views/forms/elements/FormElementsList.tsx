@@ -58,7 +58,6 @@ export const FormElementsList: React.FC<Props> = ({
       prevElementList.filter((element) => element.id !== elementIdToRemove)
     );
   };
-  console.log("CONTAINER INDEX: ", containerIndex);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>

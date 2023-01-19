@@ -10,7 +10,7 @@ const initialFormData = require("../../../InitialData.json");
 const initialState = {
   brandId: "formteam",
   kind: "questionnaire",
-  data: adjacencify(initialFormData.data),
+  data: adjacencify(initialFormData),
 };
 
 export const formBuilderSlice = createSlice({
@@ -56,7 +56,7 @@ export const formBuilderSlice = createSlice({
 
             /*
                 
-              If the element is the decedent of the last child,
+              If the element is the descendent of the last child,
               append the element to the end of the child list
 
             */
@@ -103,14 +103,27 @@ export const formBuilderSlice = createSlice({
           }
         }
       } else {
-        state.data[element.id] = {
-          ...element,
-        };
+        /*
+
+          If there is no parent, then this is a top
+          level addition, no 'children' matrices 
+          need to be updated. Just the top level
+            
+        */
+
         if (state.data.children) {
-          (state.data as any).children = [
-            ...(state.data as any).children,
-            element.id,
-          ];
+          if (prevId) {
+            let oldList = [...(state.data.children as any)];
+            oldList.splice(oldList.indexOf(prevId) + 1, 0, element.id);
+            (state.data.children as any) = oldList;
+          } else {
+            (state.data as any).children = [
+              element.id,
+              ...(state.data as any).children,
+            ];
+          }
+        } else {
+          (state.data as any).children = [element.id];
         }
       }
       state.data[element.id] = { type: element.type, body: element.body };
