@@ -23,7 +23,7 @@ const initialFormData: any = {
 const initialState = {
   brandId: "formteam",
   kind: "questionnaire",
-  data: adjecencify(initialFormData.data),
+  data: adjacencify(initialFormData.data),
 };
 
 export const formBuilderSlice = createSlice({
@@ -102,7 +102,7 @@ export const {
   submitForm,
 } = formBuilderSlice.actions;
 
-function adjecencify(
+function adjacencify(
   inputDataFromDb: Array<FormElementType>
 ): FormAdjacencifiedData {
   const returnObject: { [key: string]: any } = {};
@@ -183,7 +183,7 @@ function adjecencify(
   return returnObject;
 }
 
-export function unAdjecencify(data: FormAdjacencifiedData) {
+export function unAdjacencify(data: FormAdjacencifiedData) {
   const parse = (children: any) => {
     const currArray = [];
 
