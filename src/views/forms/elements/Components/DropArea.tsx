@@ -38,7 +38,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
   listId,
   handleElementDropped,
 }) => {
-  const { dispatchAddFormElement } = useFormBuilder();
+  const { dispatchUpdateOrAddElement } = useFormBuilder();
 
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
@@ -75,8 +75,8 @@ export const DropArea: React.FC<DropAreaProps> = ({
           index: location within the array
 
         */
-        // dispatch
-        dispatchAddFormElement({
+
+        dispatchUpdateOrAddElement({
           formElement: newElement,
           parentId: parent,
           index,
