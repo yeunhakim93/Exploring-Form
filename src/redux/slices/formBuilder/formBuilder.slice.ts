@@ -40,6 +40,7 @@ export const formBuilderSlice = createSlice({
         Nested updates
 
       */
+
       if (parentId) {
         let currentList: Array<string> = [];
         if (state.data[parentId].children) {
@@ -55,7 +56,7 @@ export const formBuilderSlice = createSlice({
 
             /*
                 
-              If the element is the decendednt of the last child,
+              If the element is the decedent of the last child,
               append the element to the end of the child list
 
             */
@@ -72,9 +73,7 @@ export const formBuilderSlice = createSlice({
 
               */
 
-              let prefix = currentList.splice(0, currentIndex);
-              prefix.push(element.id);
-              currentList = [...prefix, ...currentList];
+              currentList.splice(currentIndex + 1, 0, element.id);
             }
           } else {
             /*
