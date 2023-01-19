@@ -21,7 +21,6 @@ export const FormElement: React.FC<Props> = ({
   handleElementMoved,
 }) => {
   const { type, id, body, columns } = elementData;
-
   if (type === "checkbox") {
     return (
       <FormCheckboxElement

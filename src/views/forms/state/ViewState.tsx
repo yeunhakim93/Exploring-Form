@@ -5,7 +5,6 @@ import { unAdjacencify } from "../../../redux/slices/formBuilder";
 const ViewState: React.FC = () => {
   const { formData } = useFormBuilder();
   const [isAdjacencyList, setIsAdjacencyList] = useState(true);
-  console.log("FORM DATA: ", formData);
   return (
     <div
       style={{
@@ -16,13 +15,9 @@ const ViewState: React.FC = () => {
         top: "0px",
         background: "black",
         color: "white",
-        overflow: "scroll",
+        overflow: "hidden",
       }}
     >
-      {isAdjacencyList && <pre>{JSON.stringify(formData, null, 2)}</pre>}
-      {!isAdjacencyList && (
-        <pre>{JSON.stringify(unAdjacencify(formData), null, 2)}</pre>
-      )}
       <button
         onClick={(e) => {
           setIsAdjacencyList((prev) => !prev);
@@ -30,6 +25,30 @@ const ViewState: React.FC = () => {
       >
         Toggle Transform
       </button>
+      {isAdjacencyList && (
+        <pre
+          style={{
+            overflow: "scroll",
+            height: "90%",
+            width: "100%",
+            margin: "15px",
+          }}
+        >
+          {JSON.stringify(formData, null, 2)}
+        </pre>
+      )}
+      {!isAdjacencyList && (
+        <pre
+          style={{
+            overflow: "scroll",
+            height: "90%",
+            width: "100%",
+            margin: "15px",
+          }}
+        >
+          {JSON.stringify(unAdjacencify(formData), null, 2)}
+        </pre>
+      )}
     </div>
   );
 };

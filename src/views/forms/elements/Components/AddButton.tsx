@@ -1,13 +1,10 @@
 import * as React from "react";
-import { useFormBuilder } from "../../../../redux/slices/formBuilder";
 
 type Props = {
   type: "container" | "checkbox" | "shortAnswer";
 };
 
 export const AddButton: React.FC<Props> = ({ type }) => {
-  const { dispatchAddFormElement } = useFormBuilder();
-
   const handleAddClicked = () => {
     // dispatch
   };
