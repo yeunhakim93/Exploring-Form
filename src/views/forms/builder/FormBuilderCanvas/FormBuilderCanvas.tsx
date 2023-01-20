@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useDrag } from "react-dnd";
+import React, { useState } from "react";
 import { FormElementContainerType, FormElementType } from "../../../../types";
-import { FormElement, FormElementsList } from "../../elements";
-import { DropArea } from "../../elements/Components/DropArea";
+import { FormElementsList } from "../../elements";
 
 const data = require("../../../../InitialData.json");
 
@@ -21,8 +19,7 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
         flexDirection: "column",
         width: "90%",
         height: "calc(100vh - 200px)",
-        overflowX: "hidden",
-        overflowY: "scroll",
+        overflow: "auto",
         backgroundColor: "#f0f4f5",
         padding: "10px",
         margin: "10px",

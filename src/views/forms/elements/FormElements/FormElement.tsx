@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { FormElementType, FormElementContainerType } from "../../../../types";
 import {
   FormCheckboxElement,
@@ -14,11 +14,13 @@ type Props = {
     columns?: (FormElementType | FormElementContainerType)[][];
   };
   index?: number; // only passed in if the element belongs in a container
-  handleElementMoved: (id: string) => void;
+  listId: string;
+  handleRemoveElement: (id: string) => void;
 };
 export const FormElement: React.FC<Props> = ({
   elementData,
-  handleElementMoved,
+  listId,
+  handleRemoveElement,
 }) => {
   const { type, id, body, columns } = elementData;
   if (type === "checkbox") {
@@ -26,7 +28,8 @@ export const FormElement: React.FC<Props> = ({
       <FormCheckboxElement
         id={id}
         body={body}
-        handleElementMoved={handleElementMoved}
+        listId={listId}
+        handleRemoveElement={handleRemoveElement}
       />
     );
   } else if (type === "shortAnswer") {
@@ -34,7 +37,8 @@ export const FormElement: React.FC<Props> = ({
       <FormShortAnswerElement
         id={id}
         body={body}
-        handleElementMoved={handleElementMoved}
+        listId={listId}
+        handleRemoveElement={handleRemoveElement}
       />
     );
   } else if (type === "container") {
@@ -43,7 +47,8 @@ export const FormElement: React.FC<Props> = ({
         id={id}
         body={body}
         columns={columns}
-        handleElementMoved={handleElementMoved}
+        listId={listId}
+        handleRemoveElement={handleRemoveElement}
       />
     );
   }

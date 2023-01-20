@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useFormBuilder } from "../../../../redux/slices/formBuilder";
 import ViewState from "../../state/ViewState";
 
 import { FormBuilderCanvas } from "../FormBuilderCanvas";
@@ -7,7 +6,6 @@ import { FormBuilderSidebar } from "../FormBuilderSidebar";
 
 export const FormBuilderPage = () => {
   const [isViewingState, setIsViewingState] = React.useState(false);
-  const { dispatchClearForm, formData } = useFormBuilder();
 
   function handleToggleStateView(e: any) {
     e.preventDefault();
@@ -30,11 +28,10 @@ export const FormBuilderPage = () => {
           borderRadius: "10px",
           fontSize: "15px",
         }}
-        onClick={dispatchClearForm}
+        onClick={handleToggleStateView}
       >
-        clear
+        View State
       </button>
-      <button onClick={handleToggleStateView}>View State</button>
     </>
   );
 };

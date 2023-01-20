@@ -4,21 +4,27 @@ import { useDrag } from "react-dnd";
 type Props = {
   id: string;
   body: string;
-  handleElementMoved: (id: string) => void;
+  listId: string;
+  handleRemoveElement: (id: string) => void;
 };
 
 export const FormShortAnswerElement: React.FC<Props> = ({
   id,
   body,
-  handleElementMoved,
+  listId,
+  handleRemoveElement,
 }) => {
   const onMoveElement = () => {
-    handleElementMoved(id);
+    handleRemoveElement(id);
   };
-  const [, drag] = useDrag(() => ({
+  const [{ isDragging }, drag] = useDrag(() => ({
     type: "shortAnswerElement",
-    item: { type: "shortAnswer", id, body, onMoveElement },
+    item: { type: "shortAnswer", id, body, listId, onMoveElement },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   }));
+  const opacity = isDragging ? 0.3 : 1;
   return (
     <div
       ref={drag}
@@ -33,6 +39,8 @@ export const FormShortAnswerElement: React.FC<Props> = ({
         borderRadius: "5px",
         boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
         position: "relative",
+        transform: "translate(0, 0)",
+        opacity,
       }}
     >
       <button
