@@ -132,6 +132,8 @@ export function unAdjacencify(data: FormAdjacencifiedData) {
 
     for (const childId of children) {
       const currNode = { type: data[childId].type, id: childId };
+      if (data[childId].body) (currNode as any).body = data[childId].body;
+      if (data[childId].color) (currNode as any).color = data[childId].color;
       if (data[childId]?.children) {
         (currNode as any).columns = (data[childId] as any).children.map(
           (item: any) => parse(item)
