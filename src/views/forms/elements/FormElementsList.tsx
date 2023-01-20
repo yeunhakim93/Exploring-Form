@@ -111,7 +111,10 @@ export const FormElementsList: React.FC<Props> = ({
       />
       {elementList.length ? (
         elementList.map((elementData, i) => {
-          let elementId = elementData.id || Date.now().toString();
+          let elementId =
+            elementData.id ||
+            Date.now().toString() +
+              Math.floor(Math.random() * 25 + 10).toString(36);
           return (
             <div key={elementId}>
               <FormElement

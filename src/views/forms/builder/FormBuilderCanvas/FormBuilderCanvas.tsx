@@ -18,7 +18,6 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
         display: "flex",
         flexDirection: "column",
         width: "90%",
-        height: "calc(100vh - 200px)",
         overflow: "auto",
         backgroundColor: "#f0f4f5",
         padding: "10px",
@@ -27,7 +26,10 @@ export const FormBuilderCanvas: React.FC<Props> = ({ id }) => {
     >
       FormBuilderCanvas
       <FormElementsList
-        id={Date.now().toString()}
+        id={
+          Date.now().toString() +
+          Math.floor(Math.random() * 25 + 10).toString(36)
+        }
         rows={formElements}
         parentId={id}
       />
