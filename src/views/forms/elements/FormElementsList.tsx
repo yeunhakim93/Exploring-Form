@@ -17,14 +17,7 @@ export const FormElementsList: React.FC<Props> = ({
 }) => {
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
-  const [listId] = useState(
-    (Date.now().toString() + Math.floor(Math.random() * 1000).toString()).slice(
-      8
-    )
-  );
 
-  // This function is used to handle element being dropped (added) to the dropzone in the list.
-  // This will NOT handle the elements being moved around within the list.
   const handleElementDropped = ({
     newElement,
     prevId,
@@ -39,92 +32,57 @@ export const FormElementsList: React.FC<Props> = ({
     if (!prevId) {
       // the drop zone is the top drop zone
       setElementList((elementList) => [newElement, ...elementList]);
-    } else {
-      let indexToInsert =
-        elementList.findIndex((element) => element.id === prevId) + 1;
+    } else if (index !== undefined) {
+      // FormElementsList belongs in a container
       setElementList((elementList) => [
-        ...elementList.slice(0, indexToInsert),
+        ...elementList.slice(0, index + 1),
         newElement,
-        ...elementList.slice(indexToInsert),
+        ...elementList.slice(index + 1),
+      ]);
+    } else {
+      // FormElementsList does not belong in a container
+      let prevElementIndex = elementList.findIndex(
+        (element) => element.id === prevId
+      );
+      setElementList((prevElementList) => [
+        ...prevElementList.slice(0, prevElementIndex + 1),
+        newElement,
+        ...prevElementList.slice(prevElementIndex + 1),
       ]);
     }
   };
 
-  // This function removes an element from a list if the element is "moved" to another list.
+  // This function removes an element from a list if the element is "moved" to another list or container.
   const handleElementMoved = (elementIdToRemove: string) => {
     setElementList((prevElementList) =>
       prevElementList.filter((element) => element.id !== elementIdToRemove)
     );
   };
-  // console.log("CONTAINER INDEX: ", containerIndex);
-  // This function handles the element being moved within the list
-  const handleElementReordered = (elementIdToMove: string, prevId: string) => {
-    // console.log("elementIdToMove", elementIdToMove);
-    // console.log("prevId", prevId);
-    const from = elementList.findIndex(
-      (element) => element.id === elementIdToMove
-    );
-    const to = elementList.findIndex((element) => element.id === prevId) + 1;
 
-    // console.log("to", to);
-    // console.log("from", from);
-  };
-
-  return elementList.length > 0 ? (
+  return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <DropArea
         handleElementDropped={handleElementDropped}
         index={containerIndex}
         parent={parentId}
-        listId={listId}
       />
       {elementList.map((elementData, i) => {
-        let id =
-          elementData.id ||
-          listId +
-            Math.floor(Math.random() * 1000)
-              .toString()
-              .slice(8);
+        let id = elementData.id || Date.now().toString();
         return (
           <div key={id}>
             <FormElement
               elementData={{ ...elementData, id }}
-              listId={listId}
               handleElementMoved={handleElementMoved}
-              handleElementReordered={handleElementReordered}
             />
             <DropArea
               prevId={id}
               handleElementDropped={handleElementDropped}
               index={containerIndex}
               parent={parentId}
-              listId={listId}
             />
           </div>
         );
       })}
-    </div>
-  ) : (
-    <div
-      style={{
-        backgroundColor: "#f7ede2",
-        border: "1px white solid",
-        margin: "10px",
-        padding: "10px",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "30%",
-        borderRadius: "5px",
-        textAlign: "center",
-      }}
-    >
-      Add your element here
-      <DropArea
-        handleElementDropped={handleElementDropped}
-        index={containerIndex}
-        parent={id}
-        listId={listId}
-      />
     </div>
   );
 };
