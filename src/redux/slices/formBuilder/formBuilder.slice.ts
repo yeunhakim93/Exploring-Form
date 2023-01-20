@@ -28,11 +28,8 @@ export const formBuilderSlice = createSlice({
         addElement(state, action);
       }
     },
-    removeFormElement(
-      state,
-      action: PayloadAction<{ id: string; parentId?: string }>
-    ) {
-      //find the ID and remove
+    removeFormElement(state, action: PayloadAction<{ id: string }>) {
+      handleDelete(state, action);
     },
     clearForm(state) {
       return initialState;
@@ -135,6 +132,8 @@ export function unAdjacencify(data: FormAdjacencifiedData) {
 
     for (const childId of children) {
       const currNode = { type: data[childId].type, id: childId };
+      if (data[childId].body) (currNode as any).body = data[childId].body;
+      if (data[childId].color) (currNode as any).color = data[childId].color;
       if (data[childId]?.children) {
         (currNode as any).columns = (data[childId] as any).children.map(
           (item: any) => parse(item)
@@ -344,4 +343,56 @@ function updateElement(
 
   */
   addElement(state, action);
+}
+
+function handleDelete(state: any, action: PayloadAction<{ id: string }>) {
+  if (state.data[action.payload.id]) {
+    let child = {
+      ...state.data[action.payload.id],
+    };
+
+    if ((child as any).parent) {
+      (child as any).parent = {
+        ...(state.data[action.payload.id] as any).parent,
+      };
+    }
+
+    if ((state.data[action.payload.id] as any).parent) {
+      const { id: parent, index } = (state.data[action.payload.id] as any)
+        .parent;
+
+      const parentsChildArray = [
+        ...(state.data[parent].children as any)[index],
+      ];
+
+      const updatedArray = parentsChildArray.filter(
+        (elementId) => elementId !== action.payload.id
+      );
+      (state.data[parent].children as any)[index] = updatedArray;
+    } else {
+      // this is in the overall data structures children
+      const overAllChildren = [...(state.data.children as any)];
+      const updatedArray = overAllChildren.filter(
+        (elementId) => elementId !== action.payload.id
+      );
+      (state.data.children as any) = updatedArray;
+    }
+
+    /*
+
+      This is a 'cascading delete', so all children
+      and their associated nodes have to be deleted
+
+    */
+
+    if (state.data[action.payload.id].children) {
+      for (const list of state.data[action.payload.id].children) {
+        for (const childId of list) {
+          handleDelete(state, { payload: { id: childId } } as any);
+        }
+      }
+    }
+
+    delete state.data[action.payload.id];
+  }
 }
