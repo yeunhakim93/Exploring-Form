@@ -4,17 +4,15 @@ type Props = {
   type: "container" | "checkbox" | "shortAnswer";
 };
 
-export const AddButton: React.FC<Props> = ({ type }) => {
+export const EditFormElement: React.FC<Props> = ({ type }) => {
   const handleAddClicked = () => {};
 
   return (
     <div
       style={{
-        color: "grey",
-        borderRadius: "50%",
-        backgroundColor: "white",
-        width: "20px",
-        height: "20px",
+        position: "absolute",
+        bottom: "0",
+        height: "10vh",
         fontSize: "20px",
         fontWeight: "bold",
         textAlign: "center",

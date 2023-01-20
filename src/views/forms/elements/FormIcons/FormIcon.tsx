@@ -16,15 +16,16 @@ export const FormIcon: React.FC<Props> = ({ type, color }) => {
       style={{
         margin: "10px",
         border: "1px grey solid",
+        borderRadius: "5px",
+        boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
         padding: "10px",
-        display: "flex",
-        alignItems: "center",
+        textAlign: "center",
         justifyContent: "space-between",
         backgroundColor: color,
       }}
     >
       {type}
-      <AddButton type={type} />
+      {/* <AddButton type={type} /> */}
     </div>
   );
 };
