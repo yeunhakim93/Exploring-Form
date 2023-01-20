@@ -47,7 +47,7 @@ export const FormElementsList: React.FC<Props> = ({
   };
 
   // This function removes an element from a list if the element is "moved" to another list or container.
-  const handleElementMoved = (elementIdToRemove: string) => {
+  const handleRemoveElement = (elementIdToRemove: string) => {
     /*
 
       IF THERE IS AN ID, THIS IS A DELETION

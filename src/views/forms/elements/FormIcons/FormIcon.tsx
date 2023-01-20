@@ -22,6 +22,7 @@ export const FormIcon: React.FC<Props> = ({ type, color }) => {
         textAlign: "center",
         justifyContent: "space-between",
         backgroundColor: color,
+        transform: "translate(0, 0)",
       }}
     >
       {type}

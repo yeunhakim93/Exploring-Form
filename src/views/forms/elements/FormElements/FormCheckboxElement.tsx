@@ -39,6 +39,7 @@ export const FormCheckboxElement: React.FC<Props> = ({
         borderRadius: "5px",
         boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
         position: "relative",
+        transform: "translate(0, 0)",
         opacity,
       }}
     >

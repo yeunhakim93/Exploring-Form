@@ -51,6 +51,8 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
         borderRadius: "5px",
         boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
         position: "relative",
+        display: "inlineBlock",
+        transform: "translate(0, 0)",
         opacity,
       }}
     >
