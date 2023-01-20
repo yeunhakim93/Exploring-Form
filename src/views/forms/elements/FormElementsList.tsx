@@ -62,7 +62,9 @@ export const FormElementsList: React.FC<Props> = ({
         (element) => element.id === elementIdToMove
       );
       const to =
-        prevElementList.findIndex((element) => element.id === prevId) + 1;
+        prevId === undefined
+          ? 0
+          : prevElementList.findIndex((element) => element.id === prevId) + 1;
       if (from === to) return prevElementList;
       if (!prevId) {
         return [
@@ -71,6 +73,7 @@ export const FormElementsList: React.FC<Props> = ({
           ...prevElementList.slice(from + 1),
         ];
       } else if (to < from) {
+        //going up
         return [
           ...prevElementList.slice(0, to),
           prevElementList[from],
@@ -78,11 +81,12 @@ export const FormElementsList: React.FC<Props> = ({
           ...prevElementList.slice(from + 1),
         ];
       } else {
+        //going down
         return [
           ...prevElementList.slice(0, from),
-          ...prevElementList.slice(from + 1, to + 1),
+          ...prevElementList.slice(from + 1, to),
           prevElementList[from],
-          ...prevElementList.slice(to + 1),
+          ...prevElementList.slice(to),
         ];
       }
     });
