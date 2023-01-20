@@ -28,11 +28,65 @@ export const formBuilderSlice = createSlice({
         addElement(state, action);
       }
     },
-    removeFormElement(
-      state,
-      action: PayloadAction<{ id: string; parentId?: string }>
-    ) {
+    removeFormElement(state, action: PayloadAction<{ id: string }>) {
       //find the ID and remove
+
+      const handleDelete = (
+        state: any,
+        action: PayloadAction<{ id: string }>
+      ) => {
+        if (state.data[action.payload.id]) {
+          let child = {
+            ...state.data[action.payload.id],
+          };
+
+          if ((child as any).parent) {
+            (child as any).parent = {
+              ...(state.data[action.payload.id] as any).parent,
+            };
+          }
+
+          if ((state.data[action.payload.id] as any).parent) {
+            const { id: parent, index } = (state.data[action.payload.id] as any)
+              .parent;
+
+            const parentsChildArray = [
+              ...(state.data[parent].children as any)[index],
+            ];
+
+            const updatedArray = parentsChildArray.filter(
+              (elementId) => elementId !== action.payload.id
+            );
+            (state.data[parent].children as any)[index] = updatedArray;
+          } else {
+            // this is in the overall data structures children
+            const overAllChildren = [...(state.data.children as any)];
+            const updatedArray = overAllChildren.filter(
+              (elementId) => elementId !== action.payload.id
+            );
+            (state.data.children as any) = updatedArray;
+          }
+
+          /*
+
+            This is a 'cascading delete', so all children
+            and their associated nodes have to be deleted
+
+          */
+
+          if (state.data[action.payload.id].children) {
+            for (const list of state.data[action.payload.id].children) {
+              for (const childId of list) {
+                handleDelete(state, { payload: { id: childId } } as any);
+              }
+            }
+          }
+
+          delete state.data[action.payload.id];
+        }
+      };
+
+      handleDelete(state, action);
     },
     clearForm(state) {
       return initialState;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormElement } from ".";
+import { useFormBuilder } from "../../../redux/slices/formBuilder/useFormBuilder";
 import { FormElementType, FormElementContainerType } from "../../../types";
 import { DropArea } from "./Components/DropArea";
 
@@ -15,6 +16,7 @@ export const FormElementsList: React.FC<Props> = ({
   rows,
   parentId,
 }) => {
+  const { dispatchRemoveFormElement } = useFormBuilder();
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
 
@@ -54,6 +56,12 @@ export const FormElementsList: React.FC<Props> = ({
 
   // This function removes an element from a list if the element is "moved" to another list or container.
   const handleElementMoved = (elementIdToRemove: string) => {
+    /*
+
+      IF THERE IS AN ID, THIS IS A DELETION
+
+    */
+    dispatchRemoveFormElement({ formElementId: elementIdToRemove });
     setElementList((prevElementList) =>
       prevElementList.filter((element) => element.id !== elementIdToRemove)
     );

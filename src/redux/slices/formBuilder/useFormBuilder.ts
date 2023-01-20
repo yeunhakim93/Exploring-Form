@@ -54,14 +54,9 @@ export const useFormBuilder = () => {
 
   const dispatchRemoveFormElement = ({
     formElementId,
-    parentElementId,
   }: {
     formElementId: string;
-    parentElementId?: string;
-  }) =>
-    dispatch(
-      removeFormElement({ id: formElementId, parentId: parentElementId })
-    );
+  }) => dispatch(removeFormElement({ id: formElementId }));
 
   const dispatchClearForm = () => dispatch(clearForm());
   const dispatchSubmitForm = () => dispatch(submitForm());
