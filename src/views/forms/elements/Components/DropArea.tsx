@@ -53,7 +53,10 @@ export const DropArea: React.FC<DropAreaProps> = ({
       },
       drop: (item: itemType, monitor) => {
         const newElement = {
-          id: item.id ? item.id : Date.now().toString(),
+          id: item.id
+            ? item.id
+            : Date.now().toString() +
+              Math.floor(Math.random() * 25 + 10).toString(36),
           type: item.type,
           body: item.body ? item.body : "<div>New element!</div>",
           ...(item.type === "container" && {

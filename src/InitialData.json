@@ -1,30 +1,30 @@
 [
   {
-    "id": "asdf",
+    "id": "9845612a",
     "type": "checkbox",
     "body": "<div>Is this a <strong>checkbox</strong>?</div>",
     "color": "#f5cac3"
   },
   {
-    "id": "sdfg",
+    "id": "9546841b",
     "type": "shortAnswer",
     "body": "<div>Is this a <strong>short answer</strong>?</div>",
     "color": "#84a59d"
   },
   {
-    "id": "asdfasdf",
+    "id": "7561238c",
     "type": "container",
     "body": "<div>This is a <strong>container</strong>!</div>",
     "columns": [
       [
         {
-          "id": "asdf123",
+          "id": "12358478d",
           "type": "checkbox",
           "body": "<div>Is this a <strong>checkbox</strong>?</div>",
           "color": "#f5cac3"
         },
         {
-          "id": "asdf234",
+          "id": "12387545e",
           "type": "shortAnswer",
           "body": "<div>Is this a <strong>short answer</strong>?</div>",
           "color": "#f5cac3"
@@ -33,7 +33,7 @@
       [],
       [
         {
-          "id": "asdf346",
+          "id": "68426545f",
           "type": "checkbox",
           "body": "<div>Is this a <strong>checkbox</strong>?</div>",
           "color": "#f5cac3"

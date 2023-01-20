@@ -8,15 +8,17 @@ const elementColor = {
   container: "#f7ede2",
 };
 
-export const FormBuilderSidebar = () => {
+type Props = {
+  isDesktop: boolean;
+};
+export const FormBuilderSidebar: React.FC<Props> = ({ isDesktop }) => {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        width: "10%",
+        width: isDesktop ? "10%" : "90%",
         minWidth: "180px",
-        height: "calc(100vh - 200px)",
         backgroundColor: "#e9f0ec",
         padding: "10px",
         margin: "10px",
