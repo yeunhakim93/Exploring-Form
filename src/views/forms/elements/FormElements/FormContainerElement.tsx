@@ -1,16 +1,13 @@
 import React, { useState } from "react";
-import { useDrop } from "react-dnd";
-import { DropArea } from "../Components/DropArea";
-import { DroppableItemTypesArr } from "../ItemTypes";
 import { FormElementContainerType, FormElementType } from "../../../../types";
-import { FormElement, FormElementsList } from "../../elements";
+import { FormElementsList } from "../../elements";
 
 type FormContainerElementProps = {
   id: string;
   body: string;
   columns?: any;
   listId: string;
-  handleElementMoved: (id: string) => void;
+  handleRemoveElement: (id: string) => void;
 };
 
 export const FormContainerElement: React.FC<FormContainerElementProps> = ({
@@ -18,14 +15,14 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   body,
   columns: propColumns,
   listId,
-  handleElementMoved,
+  handleRemoveElement,
 }) => {
   // using 3 columns as default - could be changed later
   const [columnsNumber, setColumnsNumber] = useState(3);
   const [columns, setColumns] =
     useState<(FormElementType | FormElementContainerType)[][]>(propColumns);
 
-  const handleElementDropped = ({
+  const handleAddElement = ({
     newElement,
     prevId,
     index,
@@ -49,7 +46,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
     // My brain is fried this is for tomorrow
   };
   const onMoveElement = () => {
-    handleElementMoved(id);
+    handleRemoveElement(id);
     handleContainerElementMoved(id);
   };
 
@@ -92,42 +89,15 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
         }}
       >
         {columns.map((columnElement, i) => {
-          if (!columnElement.length) {
-            return (
-              <div
-                key={i}
-                style={{
-                  backgroundColor: "#f7ede2",
-                  border: "1px white solid",
-                  margin: "10px",
-                  padding: "10px",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "30%",
-                  borderRadius: "5px",
-                  textAlign: "center",
-                }}
-              >
-                Add your element here
-                <DropArea
-                  handleElementDropped={handleElementDropped}
-                  index={i}
-                  parent={id}
-                  listId={id + i}
-                />
-              </div>
-            );
-          } else {
-            return (
-              <FormElementsList
-                key={i}
-                id={id + i}
-                rows={columnElement}
-                parentId={id}
-                containerIndex={i}
-              />
-            );
-          }
+          return (
+            <FormElementsList
+              key={i}
+              id={id + i}
+              rows={columnElement}
+              parentId={id}
+              containerIndex={i}
+            />
+          );
         })}
       </div>
     </div>

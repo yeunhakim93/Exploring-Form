@@ -15,12 +15,12 @@ type Props = {
   };
   index?: number; // only passed in if the element belongs in a container
   listId: string;
-  handleElementMoved: (id: string) => void;
+  handleRemoveElement: (id: string) => void;
 };
 export const FormElement: React.FC<Props> = ({
   elementData,
   listId,
-  handleElementMoved,
+  handleRemoveElement,
 }) => {
   const { type, id, body, columns } = elementData;
   if (type === "checkbox") {
@@ -29,7 +29,7 @@ export const FormElement: React.FC<Props> = ({
         id={id}
         body={body}
         listId={listId}
-        handleElementMoved={handleElementMoved}
+        handleRemoveElement={handleRemoveElement}
       />
     );
   } else if (type === "shortAnswer") {
@@ -38,7 +38,7 @@ export const FormElement: React.FC<Props> = ({
         id={id}
         body={body}
         listId={listId}
-        handleElementMoved={handleElementMoved}
+        handleRemoveElement={handleRemoveElement}
       />
     );
   } else if (type === "container") {
@@ -48,7 +48,7 @@ export const FormElement: React.FC<Props> = ({
         body={body}
         columns={columns}
         listId={listId}
-        handleElementMoved={handleElementMoved}
+        handleRemoveElement={handleRemoveElement}
       />
     );
   }

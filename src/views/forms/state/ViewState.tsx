@@ -16,6 +16,7 @@ const ViewState: React.FC = () => {
         background: "black",
         color: "white",
         overflow: "hidden",
+        zIndex: "1000",
       }}
     >
       <button

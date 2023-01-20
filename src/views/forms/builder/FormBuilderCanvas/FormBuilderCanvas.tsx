@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useDrag } from "react-dnd";
+import React, { useState } from "react";
 import { FormElementContainerType, FormElementType } from "../../../../types";
-import { FormElement, FormElementsList } from "../../elements";
-import { DropArea } from "../../elements/Components/DropArea";
+import { FormElementsList } from "../../elements";
 
 const data = require("../../../../InitialData.json");
 

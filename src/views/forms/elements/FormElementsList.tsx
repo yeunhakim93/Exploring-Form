@@ -18,74 +18,129 @@ export const FormElementsList: React.FC<Props> = ({
   const [elementList, setElementList] =
     useState<(FormElementType | FormElementContainerType)[]>(rows);
 
-  const handleElementDropped = ({
+  const handleAddElement = ({
     newElement,
     prevId,
-    index,
     parent,
   }: {
     newElement: FormElementType;
     prevId?: string; // this is the id of element that's directly above the drop zone. if the drop zone is the top drop zone, this is null
-    index?: number; // this is only used if the FormElementsList belongs in a container
     parent?: string;
   }) => {
     if (!prevId) {
       // the drop zone is the top drop zone
-      setElementList((elementList) => [newElement, ...elementList]);
-    } else if (index !== undefined) {
-      // FormElementsList belongs in a container
-      setElementList((elementList) => [
-        ...elementList.slice(0, index + 1),
-        newElement,
-        ...elementList.slice(index + 1),
-      ]);
+      setElementList((prevElementList) => [newElement, ...prevElementList]);
     } else {
-      // FormElementsList does not belong in a container
-      let prevElementIndex = elementList.findIndex(
-        (element) => element.id === prevId
-      );
-      setElementList((prevElementList) => [
-        ...prevElementList.slice(0, prevElementIndex + 1),
-        newElement,
-        ...prevElementList.slice(prevElementIndex + 1),
-      ]);
+      setElementList((prevElementList) => {
+        let prevElementIndex = prevElementList.findIndex(
+          (element) => element.id === prevId
+        );
+        return [
+          ...prevElementList.slice(0, prevElementIndex + 1),
+          newElement,
+          ...prevElementList.slice(prevElementIndex + 1),
+        ];
+      });
     }
   };
 
   // This function removes an element from a list if the element is "moved" to another list or container.
-  const handleElementMoved = (elementIdToRemove: string) => {
+  const handleRemoveElement = (elementIdToRemove: string) => {
     setElementList((prevElementList) =>
       prevElementList.filter((element) => element.id !== elementIdToRemove)
     );
   };
 
+  const handleMoveElement = (
+    elementIdToMove: string,
+    prevId: string | undefined
+  ) => {
+    if (elementIdToMove === prevId) return;
+
+    setElementList((prevElementList) => {
+      const from = prevElementList.findIndex(
+        (element) => element.id === elementIdToMove
+      );
+      const to =
+        prevElementList.findIndex((element) => element.id === prevId) + 1;
+      if (from === to) return prevElementList;
+      if (!prevId) {
+        return [
+          prevElementList[from],
+          ...prevElementList.slice(0, from),
+          ...prevElementList.slice(from + 1),
+        ];
+      } else if (to < from) {
+        return [
+          ...prevElementList.slice(0, to),
+          prevElementList[from],
+          ...prevElementList.slice(to, from),
+          ...prevElementList.slice(from + 1),
+        ];
+      } else {
+        return [
+          ...prevElementList.slice(0, from),
+          ...prevElementList.slice(from + 1, to + 1),
+          prevElementList[from],
+          ...prevElementList.slice(to + 1),
+        ];
+      }
+    });
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <DropArea
-        handleElementDropped={handleElementDropped}
         index={containerIndex}
         parent={parentId}
         listId={id}
+        handleAddElement={handleAddElement}
+        handleMoveElement={handleMoveElement}
       />
-      {elementList.map((elementData, i) => {
-        let elementId = elementData.id || Date.now().toString();
-        return (
-          <div key={elementId}>
-            <FormElement
-              elementData={{ ...elementData, id: elementId }}
-              handleElementMoved={handleElementMoved}
-              listId={id}
-            />
-            <DropArea
-              prevId={elementId}
-              handleElementDropped={handleElementDropped}
-              index={containerIndex}
-              parent={parentId}
-              listId={id}
-            />
-          </div>
-        );
-      })}
+      {elementList.length ? (
+        elementList.map((elementData, i) => {
+          let elementId = elementData.id || Date.now().toString();
+          return (
+            <div key={elementId}>
+              <FormElement
+                elementData={{ ...elementData, id: elementId }}
+                listId={id}
+                handleRemoveElement={handleRemoveElement}
+              />
+              <DropArea
+                prevId={elementId}
+                index={containerIndex}
+                parent={parentId}
+                listId={id}
+                handleAddElement={handleAddElement}
+                handleMoveElement={handleMoveElement}
+              />
+            </div>
+          );
+        })
+      ) : (
+        <div
+          style={{
+            backgroundColor: "#f7ede2",
+            border: "1px white solid",
+            margin: "10px",
+            padding: "10px",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        >
+          Add your element here
+          <DropArea
+            handleAddElement={handleAddElement}
+            handleMoveElement={handleMoveElement}
+            index={containerIndex}
+            parent={parentId}
+            listId={id}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -17,7 +17,7 @@ type DropAreaProps = {
   prevId?: string; // this is the id of an element that contains the drop area
   index?: number;
   listId: string;
-  handleElementDropped: ({
+  handleAddElement: ({
     newElement,
     prevId,
     index,
@@ -28,14 +28,19 @@ type DropAreaProps = {
     index?: number;
     parent?: string;
   }) => void;
+  handleMoveElement: (
+    elementIdToMove: string,
+    prevId: string | undefined
+  ) => void;
 };
 
 export const DropArea: React.FC<DropAreaProps> = ({
-  handleElementDropped,
   prevId,
   index,
   parent,
   listId,
+  handleAddElement,
+  handleMoveElement,
 }) => {
   const { dispatchUpdateOrAddElement } = useFormBuilder();
 
@@ -53,12 +58,12 @@ export const DropArea: React.FC<DropAreaProps> = ({
           ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
         };
         if (listId === item.listId) {
-          console.log("same list");
+          handleMoveElement(item.id, prevId);
         } else {
           item.onMoveElement && item.onMoveElement();
 
-          handleElementDropped &&
-            handleElementDropped({ newElement, prevId, index, parent });
+          handleAddElement &&
+            handleAddElement({ newElement, prevId, index, parent });
         }
         /*
 

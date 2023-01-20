@@ -5,17 +5,17 @@ type Props = {
   id: string;
   body: string;
   listId: string;
-  handleElementMoved: (id: string) => void;
+  handleRemoveElement: (id: string) => void;
 };
 
 export const FormShortAnswerElement: React.FC<Props> = ({
   id,
   body,
   listId,
-  handleElementMoved,
+  handleRemoveElement,
 }) => {
   const onMoveElement = () => {
-    handleElementMoved(id);
+    handleRemoveElement(id);
   };
   const [, drag] = useDrag(() => ({
     type: "shortAnswerElement",
