@@ -9,6 +9,7 @@ type FormContainerElementProps = {
   id: string;
   body: string;
   columns?: any;
+  listId: string;
   handleElementMoved: (id: string) => void;
 };
 
@@ -16,6 +17,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   id,
   body,
   columns: propColumns,
+  listId,
   handleElementMoved,
 }) => {
   // using 3 columns as default - could be changed later
@@ -111,6 +113,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
                   handleElementDropped={handleElementDropped}
                   index={i}
                   parent={id}
+                  listId={id + i}
                 />
               </div>
             );
@@ -118,7 +121,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
             return (
               <FormElementsList
                 key={i}
-                id={Date.now().toString()}
+                id={id + i}
                 rows={columnElement}
                 parentId={id}
                 containerIndex={i}

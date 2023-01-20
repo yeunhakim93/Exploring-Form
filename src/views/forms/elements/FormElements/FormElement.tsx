@@ -14,10 +14,12 @@ type Props = {
     columns?: (FormElementType | FormElementContainerType)[][];
   };
   index?: number; // only passed in if the element belongs in a container
+  listId: string;
   handleElementMoved: (id: string) => void;
 };
 export const FormElement: React.FC<Props> = ({
   elementData,
+  listId,
   handleElementMoved,
 }) => {
   const { type, id, body, columns } = elementData;
@@ -26,6 +28,7 @@ export const FormElement: React.FC<Props> = ({
       <FormCheckboxElement
         id={id}
         body={body}
+        listId={listId}
         handleElementMoved={handleElementMoved}
       />
     );
@@ -34,6 +37,7 @@ export const FormElement: React.FC<Props> = ({
       <FormShortAnswerElement
         id={id}
         body={body}
+        listId={listId}
         handleElementMoved={handleElementMoved}
       />
     );
@@ -43,6 +47,7 @@ export const FormElement: React.FC<Props> = ({
         id={id}
         body={body}
         columns={columns}
+        listId={listId}
         handleElementMoved={handleElementMoved}
       />
     );

@@ -65,20 +65,23 @@ export const FormElementsList: React.FC<Props> = ({
         handleElementDropped={handleElementDropped}
         index={containerIndex}
         parent={parentId}
+        listId={id}
       />
       {elementList.map((elementData, i) => {
-        let id = elementData.id || Date.now().toString();
+        let elementId = elementData.id || Date.now().toString();
         return (
-          <div key={id}>
+          <div key={elementId}>
             <FormElement
-              elementData={{ ...elementData, id }}
+              elementData={{ ...elementData, id: elementId }}
               handleElementMoved={handleElementMoved}
+              listId={id}
             />
             <DropArea
-              prevId={id}
+              prevId={elementId}
               handleElementDropped={handleElementDropped}
               index={containerIndex}
               parent={parentId}
+              listId={id}
             />
           </div>
         );
