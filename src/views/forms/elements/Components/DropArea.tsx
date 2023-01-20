@@ -9,6 +9,7 @@ type itemType = {
   type: "container" | "checkbox" | "shortAnswer";
   body: string;
   listId: string;
+  columns: any[];
   onMoveElement: () => void;
 };
 
@@ -55,13 +56,14 @@ export const DropArea: React.FC<DropAreaProps> = ({
           id: item.id ? item.id : Date.now().toString(),
           type: item.type,
           body: item.body ? item.body : "<div>New element!</div>",
-          ...(item.type === "container" && { columns: [[], [], []] }), // TODO: handle this better for containers
+          ...(item.type === "container" && {
+            columns: item.columns ? item.columns : [[], [], []],
+          }), // TODO: handle this better for containers
         };
         if (listId === item.listId) {
           handleMoveElement(item.id, prevId);
         } else {
           item.onMoveElement && item.onMoveElement();
-
           handleAddElement &&
             handleAddElement({ newElement, prevId, index, parent });
         }

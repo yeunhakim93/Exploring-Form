@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDrag } from "react-dnd";
 import { FormElementContainerType, FormElementType } from "../../../../types";
 import { FormElementsList } from "../../elements";
 
@@ -22,36 +23,24 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   const [columns, setColumns] =
     useState<(FormElementType | FormElementContainerType)[][]>(propColumns);
 
-  const handleAddElement = ({
-    newElement,
-    prevId,
-    index,
-    parent,
-  }: {
-    newElement: FormElementType;
-    prevId?: string;
-    index?: number;
-    parent?: string;
-  }) => {
-    if (index !== undefined)
-      // TODO: will.. format this better
-      // this is "replacing"
-      setColumns((columns) => [
-        ...columns.slice(0, index),
-        [newElement],
-        ...columns.slice(index + 1),
-      ]);
-  };
-  const handleContainerElementMoved = (id: string) => {
-    // My brain is fried this is for tomorrow
-  };
   const onMoveElement = () => {
     handleRemoveElement(id);
-    handleContainerElementMoved(id);
   };
+
+  const [{ isDragging }, drag] = useDrag(() => {
+    return {
+      type: "containerElement",
+      item: { type: "container", id, body, listId, columns, onMoveElement },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    };
+  });
+  const opacity = isDragging ? 0.3 : 1;
 
   return (
     <div
+      ref={drag}
       style={{
         backgroundColor: "#f7ede2",
         border: "1px grey solid",
@@ -62,6 +51,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
         borderRadius: "5px",
         boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
         position: "relative",
+        opacity,
       }}
     >
       <button

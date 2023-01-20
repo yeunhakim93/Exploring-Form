@@ -17,10 +17,14 @@ export const FormCheckboxElement: React.FC<Props> = ({
   const onMoveElement = () => {
     handleRemoveElement(id);
   };
-  const [, drag] = useDrag(() => ({
+  const [{ isDragging }, drag] = useDrag(() => ({
     type: "checkboxElement",
     item: { type: "checkbox", id, body, listId, onMoveElement },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   }));
+  const opacity = isDragging ? 0.3 : 1;
   return (
     <div
       ref={drag}
@@ -35,6 +39,7 @@ export const FormCheckboxElement: React.FC<Props> = ({
         borderRadius: "5px",
         boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
         position: "relative",
+        opacity,
       }}
     >
       <button
