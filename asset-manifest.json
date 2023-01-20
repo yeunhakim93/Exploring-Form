@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.5a4623ac.chunk.css",
-    "main.js": "/static/js/main.db05a98e.chunk.js",
-    "main.js.map": "/static/js/main.db05a98e.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.5ecd80ad.js",
-    "runtime-main.js.map": "/static/js/runtime-main.5ecd80ad.js.map",
-    "static/js/2.c853e4a4.chunk.js": "/static/js/2.c853e4a4.chunk.js",
-    "static/js/2.c853e4a4.chunk.js.map": "/static/js/2.c853e4a4.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.5a4623ac.chunk.css.map": "/static/css/main.5a4623ac.chunk.css.map",
-    "static/js/2.c853e4a4.chunk.js.LICENSE.txt": "/static/js/2.c853e4a4.chunk.js.LICENSE.txt"
+    "main.css": "/Exploring-Form/static/css/main.5a4623ac.chunk.css",
+    "main.js": "/Exploring-Form/static/js/main.db05a98e.chunk.js",
+    "main.js.map": "/Exploring-Form/static/js/main.db05a98e.chunk.js.map",
+    "runtime-main.js": "/Exploring-Form/static/js/runtime-main.e04d980a.js",
+    "runtime-main.js.map": "/Exploring-Form/static/js/runtime-main.e04d980a.js.map",
+    "static/js/2.c853e4a4.chunk.js": "/Exploring-Form/static/js/2.c853e4a4.chunk.js",
+    "static/js/2.c853e4a4.chunk.js.map": "/Exploring-Form/static/js/2.c853e4a4.chunk.js.map",
+    "index.html": "/Exploring-Form/index.html",
+    "static/css/main.5a4623ac.chunk.css.map": "/Exploring-Form/static/css/main.5a4623ac.chunk.css.map",
+    "static/js/2.c853e4a4.chunk.js.LICENSE.txt": "/Exploring-Form/static/js/2.c853e4a4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.5ecd80ad.js",
+    "static/js/runtime-main.e04d980a.js",
     "static/js/2.c853e4a4.chunk.js",
     "static/css/main.5a4623ac.chunk.css",
     "static/js/main.db05a98e.chunk.js"
