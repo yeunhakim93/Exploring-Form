@@ -17,8 +17,9 @@ export const FormElementsList: React.FC<Props> = ({
   parentId,
 }) => {
   const { dispatchRemoveFormElement } = useFormBuilder();
-  const [elementList, setElementList] =
-    useState<(FormElementType | FormElementContainerType)[]>(rows);
+  const [elementList, setElementList] = useState<
+    (FormElementType | FormElementContainerType)[]
+  >(rows || []);
 
   const handleAddElement = ({
     newElement,

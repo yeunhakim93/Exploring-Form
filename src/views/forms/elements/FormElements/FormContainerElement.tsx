@@ -20,8 +20,9 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
 }) => {
   // using 3 columns as default - could be changed later
   const [columnsNumber, setColumnsNumber] = useState(3);
-  const [columns, setColumns] =
-    useState<(FormElementType | FormElementContainerType)[][]>(propColumns);
+  const [columns, setColumns] = useState<
+    (FormElementType | FormElementContainerType)[][]
+  >(propColumns || [[], [], []]);
 
   const onMoveElement = () => {
     handleRemoveElement(id);
