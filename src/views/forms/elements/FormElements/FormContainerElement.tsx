@@ -62,8 +62,21 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
         justifyContent: "space-between",
         borderRadius: "5px",
         boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
+        position: "relative",
       }}
     >
+      <button
+        style={{
+          position: "absolute",
+          right: "10px",
+          top: "10px",
+          border: "1px grey solid",
+          borderRadius: "5px",
+        }}
+        onClick={onMoveElement}
+      >
+        x
+      </button>
       <div
         dangerouslySetInnerHTML={{
           __html: body + " <small>id:" + id + "</small>",
