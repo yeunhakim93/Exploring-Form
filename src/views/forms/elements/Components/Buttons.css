@@ -65,3 +65,29 @@ button {
   background-color: #eeeeef;
   transition: 0.3s;
 }
+
+.divider {
+  width: 1px;
+  background-color: #eeeeef;
+  height: 30px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.dropdown {
+  height: 20px;
+  margin: auto 0;
+  border: none;
+  color: #697789;
+  text-align: center;
+}
+
+.is-active {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: #eeeeef;
+  transition: 0.3s;
+  margin-top: auto;
+  margin-bottom: auto;
+}

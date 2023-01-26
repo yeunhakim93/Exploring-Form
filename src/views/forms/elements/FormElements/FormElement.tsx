@@ -84,7 +84,9 @@ export const FormElement: React.FC<Props> = ({
           if (isMouseOver) setIsMouseOver(false);
         }}
       >
-        {isMouseOver && <p style={{ margin: "0 5px 5px" }}>Container</p>}
+        {isMouseOver && (
+          <p style={{ margin: "0 5px 5px", color: "white" }}>Container</p>
+        )}
         {isMouseOver && (
           <TrashIcon
             onRemoveElement={() => handleRemoveElement(id)}

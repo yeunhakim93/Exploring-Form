@@ -1,50 +1,44 @@
 [
   {
-    "id": "9845612a",
-    "type": "checkbox",
-    "body": "<div>Is this a <strong>checkbox</strong>?</div>",
-    "color": "#f5cac3"
-  },
-  {
-    "id": "9546841b",
-    "type": "shortAnswer",
-    "body": "<div>Is this a <strong>short answer</strong>?</div>",
-    "color": "#84a59d"
-  },
-  {
-    "id": "5428445n",
-    "type": "text",
-    "body": "<div>This is a text element</div>",
-    "color": "#eeeeee"
-  },
-  {
-    "id": "7561238c",
     "type": "container",
+    "id": "7561238c",
     "body": "<div>This is a <strong>container</strong>!</div>",
     "columns": [
       [
         {
-          "id": "12358478d",
           "type": "checkbox",
-          "body": "<div>Is this a <strong>checkbox</strong>?</div>",
-          "color": "#f5cac3"
+          "id": "12358478d",
+          "body": "<div>Is this a <strong>checkbox</strong>?</div>"
         },
         {
-          "id": "12387545e",
           "type": "shortAnswer",
-          "body": "<div>Is this a <strong>short answer</strong>?</div>",
-          "color": "#f5cac3"
+          "id": "12387545e",
+          "body": "<div>Is this a <strong>short answer</strong>?</div>"
         }
       ],
       [],
       [
         {
-          "id": "68426545f",
           "type": "checkbox",
-          "body": "<div>Is this a <strong>checkbox</strong>?</div>",
-          "color": "#f5cac3"
+          "id": "68426545f",
+          "body": "<div>Is this a <strong>checkbox</strong>?</div>"
         }
       ]
     ]
+  },
+  {
+    "type": "checkbox",
+    "id": "9845612a",
+    "body": "<div>Is this a <strong>checkbox</strong>?</div>"
+  },
+  {
+    "type": "shortAnswer",
+    "id": "9546841b",
+    "body": "<div>Is this a <strong>short answer</strong>?</div>"
+  },
+  {
+    "type": "text",
+    "id": "5428445n",
+    "body": "<p><strong><em><span style=\"font-family: Special Elite\">This</span></em></strong> is a text element</p>"
   }
 ]

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Document from "@tiptap/extension-document";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
 import Highlight from "@tiptap/extension-highlight";
 import Underline from "@tiptap/extension-underline";
+import TextStyle from "@tiptap/extension-text-style";
+import FontFamily from "@tiptap/extension-font-family";
 import { useFormBuilder } from "../../../../redux/slices/formBuilder";
 
 import {
@@ -51,6 +56,21 @@ const MenuBar: React.FC<MenuBarProps> = ({ editor }) => {
       >
         <HighlightIcon />
       </button>
+      <div className="divider"></div>
+      <select
+        className="dropdown"
+        name="fontFamily"
+        onChange={(e) => {
+          editor.chain().focus().setFontFamily(e.target.value).run();
+        }}
+      >
+        <option value="Figtree">Figtree</option>
+        <option value="Roboto">Roboto</option>
+        <option value="Quicksand">Quicksand</option>
+        <option value="Raleway">Raleway</option>
+        <option value="Special Elite">Special Elite</option>
+      </select>
+      <div className="divider"></div>
       <button onClick={() => editor.chain().focus().undo().run()}>
         <UndoIcon />
       </button>
@@ -77,7 +97,16 @@ export const Tiptap: React.FC<TiptapProps> = ({
 
   const [isEditing, setIsEditing] = useState(false);
   const editor = useEditor({
-    extensions: [StarterKit, Highlight, Underline],
+    extensions: [
+      StarterKit,
+      Document,
+      Paragraph,
+      Text,
+      Highlight,
+      Underline,
+      TextStyle,
+      FontFamily,
+    ],
     content,
   });
 
