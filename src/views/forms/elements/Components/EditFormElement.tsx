@@ -1,7 +1,7 @@
 import * as React from "react";
 
 type Props = {
-  type: "container" | "checkbox" | "shortAnswer";
+  type: "container" | "checkbox" | "shortAnswer" | "text";
 };
 
 export const EditFormElement: React.FC<Props> = ({ type }) => {
