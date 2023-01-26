@@ -4,3 +4,29 @@ body,
 html {
   font-family: "Figtree", "Segoe UI", sans-serif;
 }
+p {
+  margin: 0;
+}
+.ProseMirror:focus {
+  outline: #363c36 dashed 1px;
+  outline: none;
+}
+
+.container-element-hover-container {
+  margin: 5px 0;
+}
+.container-element-hover-container:hover {
+  border-radius: 5px;
+  position: relative;
+  background-color: rgb(90, 137, 122);
+  padding: 5px 3px 3px 3px;
+}
+.element-hover-container {
+  margin: 5px 0;
+}
+
+.element-hover-container:hover {
+  outline: #363c36 dashed 1px;
+  position: relative;
+  background-color: rgb(90, 137, 122);
+}

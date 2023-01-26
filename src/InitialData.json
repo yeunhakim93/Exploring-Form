@@ -12,6 +12,12 @@
     "color": "#84a59d"
   },
   {
+    "id": "5428445n",
+    "type": "text",
+    "body": "<div>This is a text element</div>",
+    "color": "#eeeeee"
+  },
+  {
     "id": "7561238c",
     "type": "container",
     "body": "<div>This is a <strong>container</strong>!</div>",
