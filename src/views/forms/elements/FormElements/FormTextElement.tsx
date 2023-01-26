@@ -1,7 +1,6 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import { Tiptap } from "../Components/Tiptap";
-import { EditIcon, TrashIcon } from "../Components/Buttons";
 
 type Props = {
   id: string;
@@ -12,7 +11,7 @@ type Props = {
   handleRemoveElement: (id: string) => void;
 };
 
-export const FormShortAnswerElement: React.FC<Props> = ({
+export const FormTextElement: React.FC<Props> = ({
   id,
   body,
   listId,
@@ -20,23 +19,32 @@ export const FormShortAnswerElement: React.FC<Props> = ({
   handleTiptapDeactivate,
   handleRemoveElement,
 }) => {
+  const [elementBody, setElementBody] = useState(body);
+
+  const handleSetElementBody = (newBody: string) => {
+    console.log("new body is", newBody);
+    setElementBody(newBody);
+  };
   const onRemoveElement = () => {
     handleRemoveElement(id);
   };
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "shortAnswerElement",
-    item: { type: "shortAnswer", id, body, listId, onRemoveElement },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: "textElement",
+      item: { type: "text", id, body: elementBody, listId, onRemoveElement },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
     }),
-  }));
+    [elementBody]
+  );
   const opacity = isDragging ? 0.3 : 1;
   return (
     <div
       id={"element" + id}
       ref={drag}
       style={{
-        backgroundColor: "#84a59d",
+        backgroundColor: "#eeeeee",
         border: "1px grey solid",
         padding: "10px",
         display: "flex",
@@ -49,12 +57,13 @@ export const FormShortAnswerElement: React.FC<Props> = ({
         opacity,
       }}
     >
-      <div
-        dangerouslySetInnerHTML={{
-          __html: body + " <small>id:" + id + "</small>",
-        }}
-      ></div>
-      <input name={id} id={id}></input>
+      <Tiptap
+        content={elementBody}
+        id={id}
+        isActive={isTiptapActive}
+        handleSetElementBody={handleSetElementBody}
+        handleTiptapDeactivate={handleTiptapDeactivate}
+      />
     </div>
   );
 };

@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import { FormElementContainerType, FormElementType } from "../../../../types";
 import { FormElementsList } from "../../elements";
+import { EditIcon, TrashIcon } from "../Components/Buttons";
 
 type FormContainerElementProps = {
   id: string;
   body: string;
   columns?: any;
   listId: string;
+  isTiptapActive: boolean;
   handleRemoveElement: (id: string) => void;
 };
 
@@ -16,6 +18,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
   body,
   columns: propColumns,
   listId,
+  isTiptapActive,
   handleRemoveElement,
 }) => {
   // using 3 columns as default - could be changed later
@@ -24,14 +27,14 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
     (FormElementType | FormElementContainerType)[][]
   >(propColumns || [[], [], []]);
 
-  const onMoveElement = () => {
+  const onRemoveElement = () => {
     handleRemoveElement(id);
   };
 
   const [{ isDragging }, drag] = useDrag(() => {
     return {
       type: "containerElement",
-      item: { type: "container", id, body, listId, columns, onMoveElement },
+      item: { type: "container", id, body, listId, columns, onRemoveElement },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
@@ -41,11 +44,11 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
 
   return (
     <div
+      id={id}
       ref={drag}
       style={{
         backgroundColor: "#f7ede2",
         border: "1px grey solid",
-        margin: "10px",
         padding: "10px",
         alignItems: "center",
         justifyContent: "space-between",
@@ -57,18 +60,6 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
         opacity,
       }}
     >
-      <button
-        style={{
-          position: "absolute",
-          right: "10px",
-          top: "10px",
-          border: "1px grey solid",
-          borderRadius: "5px",
-        }}
-        onClick={onMoveElement}
-      >
-        x
-      </button>
       <div
         dangerouslySetInnerHTML={{
           __html: body + " <small>id:" + id + "</small>",
@@ -79,6 +70,7 @@ export const FormContainerElement: React.FC<FormContainerElementProps> = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          gap: "10px",
         }}
       >
         {columns.map((columnElement, i) => {

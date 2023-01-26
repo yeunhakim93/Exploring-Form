@@ -1,10 +1,14 @@
 import * as React from "react";
 import { useDrag } from "react-dnd";
+import { Tiptap } from "../../elements/Components/Tiptap";
+import { EditIcon, TrashIcon } from "../Components/Buttons";
 
 type Props = {
   id: string;
   body: string;
   listId: string;
+  isTiptapActive: boolean;
+  handleTiptapDeactivate: (e: React.FocusEvent<HTMLDivElement>) => void;
   handleRemoveElement: (id: string) => void;
 };
 
@@ -12,14 +16,16 @@ export const FormCheckboxElement: React.FC<Props> = ({
   id,
   body,
   listId,
+  isTiptapActive,
+  handleTiptapDeactivate,
   handleRemoveElement,
 }) => {
-  const onMoveElement = () => {
+  const onRemoveElement = () => {
     handleRemoveElement(id);
   };
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "checkboxElement",
-    item: { type: "checkbox", id, body, listId, onMoveElement },
+    item: { type: "checkbox", id, body, listId, onRemoveElement },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -27,9 +33,9 @@ export const FormCheckboxElement: React.FC<Props> = ({
   const opacity = isDragging ? 0.3 : 1;
   return (
     <div
+      id={id}
       ref={drag}
       style={{
-        margin: "10px",
         backgroundColor: "#f5cac3",
         border: "1px grey solid",
         padding: "10px",
@@ -43,18 +49,6 @@ export const FormCheckboxElement: React.FC<Props> = ({
         opacity,
       }}
     >
-      <button
-        style={{
-          position: "absolute",
-          right: "10px",
-          top: "10px",
-          border: "1px grey solid",
-          borderRadius: "5px",
-        }}
-        onClick={onMoveElement}
-      >
-        x
-      </button>
       <div
         dangerouslySetInnerHTML={{
           __html: body + " <small>id:" + id + "</small>",
