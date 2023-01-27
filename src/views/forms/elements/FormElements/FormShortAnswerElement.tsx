@@ -54,7 +54,15 @@ export const FormShortAnswerElement: React.FC<Props> = ({
           __html: body + " <small>id:" + id + "</small>",
         }}
       ></div>
-      <input name={id} id={id}></input>
+      <input
+        name={id}
+        id={id}
+        style={{
+          height: "25px",
+          borderRadius: "5px",
+          border: "1px solid grey",
+        }}
+      ></input>
     </div>
   );
 };

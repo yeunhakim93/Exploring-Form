@@ -91,3 +91,8 @@ button {
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.un-doable {
+  cursor: not-allowed;
+  opacity: 0.3;
+}

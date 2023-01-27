@@ -8,6 +8,7 @@ import Highlight from "@tiptap/extension-highlight";
 import Underline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import FontFamily from "@tiptap/extension-font-family";
+import { FontSize } from "../../../../tiptap-extension/font-size";
 import { useFormBuilder } from "../../../../redux/slices/formBuilder";
 
 import {
@@ -16,6 +17,7 @@ import {
   UnderlineIcon,
   HighlightIcon,
   UndoIcon,
+  RedoIcon,
   MoreIcon,
   DropDownIcon,
 } from "./Buttons";
@@ -57,12 +59,15 @@ const MenuBar: React.FC<MenuBarProps> = ({ editor }) => {
         <HighlightIcon />
       </button>
       <div className="divider"></div>
+
       <select
         className="dropdown"
         name="fontFamily"
         onChange={(e) => {
           editor.chain().focus().setFontFamily(e.target.value).run();
+          console.log(editor.getAttributes("textStyle").fontFamily);
         }}
+        value={editor.getAttributes("textStyle").fontFamily || "Figtree"}
       >
         <option value="Figtree">Figtree</option>
         <option value="Roboto">Roboto</option>
@@ -70,9 +75,37 @@ const MenuBar: React.FC<MenuBarProps> = ({ editor }) => {
         <option value="Raleway">Raleway</option>
         <option value="Special Elite">Special Elite</option>
       </select>
+      <select
+        className="dropdown"
+        name="fontSize"
+        onChange={(e) => {
+          editor.chain().focus().setFontSize(e.target.value).run();
+          console.log(editor.getAttributes("textStyle").fontSize);
+        }}
+        value={editor.getAttributes("textStyle").fontSize || "10px"}
+      >
+        <option value="10px">10</option>
+        <option value="11px">11</option>
+        <option value="12px">12</option>
+        <option value="14px">14</option>
+        <option value="16px">16</option>
+        <option value="18px">18</option>
+        <option value="20px">20</option>
+        <option value="24px">24</option>
+        <option value="28px">28</option>
+      </select>
       <div className="divider"></div>
-      <button onClick={() => editor.chain().focus().undo().run()}>
+      <button
+        className={editor.can().undo() ? "" : "un-doable"}
+        onClick={() => editor.chain().focus().undo().run()}
+      >
         <UndoIcon />
+      </button>
+      <button
+        className={editor.can().redo() ? "" : "un-doable"}
+        onClick={() => editor.chain().focus().redo().run()}
+      >
+        <RedoIcon />
       </button>
     </div>
   );
@@ -106,6 +139,7 @@ export const Tiptap: React.FC<TiptapProps> = ({
       Underline,
       TextStyle,
       FontFamily,
+      FontSize,
     ],
     content,
   });
@@ -130,7 +164,7 @@ export const Tiptap: React.FC<TiptapProps> = ({
         handleBlur(e);
       }}
     >
-      {(isEditing || isActive) && <MenuBar editor={editor} />}
+      {isEditing && <MenuBar editor={editor} />}
       <EditorContent
         editor={editor}
         onClick={() => {
