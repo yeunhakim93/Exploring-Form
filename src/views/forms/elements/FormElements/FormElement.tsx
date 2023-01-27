@@ -6,7 +6,7 @@ import {
   FormContainerElement,
   FormTextElement,
 } from "./";
-import { EditIcon, TrashIcon } from "../Components/Buttons";
+import { EditIcon, TrashIcon } from "../../../../tiptap/Buttons";
 
 type Props = {
   elementData: {

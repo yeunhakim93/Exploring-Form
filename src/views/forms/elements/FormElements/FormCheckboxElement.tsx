@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useDrag } from "react-dnd";
-import { Tiptap } from "../../elements/Components/Tiptap";
-import { EditIcon, TrashIcon } from "../Components/Buttons";
+import { Tiptap } from "../../../../tiptap/Tiptap";
+import { EditIcon, TrashIcon } from "../../../../tiptap/Buttons";
 
 type Props = {
   id: string;

@@ -1,0 +1,27 @@
+{
+  "Paragraph": {
+    "fontFamily": "Raleway",
+    "fontSize": "",
+    "color": ""
+  },
+  "Heading 1": {
+    "fontFamily": "Explora",
+    "fontSize": "50px",
+    "color": "rgb(141, 119, 119)"
+  },
+  "Heading 2": {
+    "fontFamily": "Caveat",
+    "fontSize": "30px",
+    "color": "rgb(71, 89, 107)"
+  },
+  "Heading 3": {
+    "fontFamily": "Quicksand",
+    "fontSize": "20px",
+    "color": "rgb(97, 97, 97)"
+  },
+  "Heading 4": {
+    "fontFamily": "Special Elite",
+    "fontSize": "",
+    "color": ""
+  }
+}

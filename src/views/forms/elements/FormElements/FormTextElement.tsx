@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDrag } from "react-dnd";
-import { Tiptap } from "../Components/Tiptap";
+import { Tiptap } from "../../../../tiptap/Tiptap";
 
 type Props = {
   id: string;
@@ -22,7 +22,6 @@ export const FormTextElement: React.FC<Props> = ({
   const [elementBody, setElementBody] = useState(body);
 
   const handleSetElementBody = (newBody: string) => {
-    console.log("new body is", newBody);
     setElementBody(newBody);
   };
   const onRemoveElement = () => {
@@ -44,7 +43,7 @@ export const FormTextElement: React.FC<Props> = ({
       id={"element" + id}
       ref={drag}
       style={{
-        backgroundColor: "#eeeeee",
+        backgroundColor: "#ffffff",
         border: "1px grey solid",
         padding: "10px",
         display: "flex",

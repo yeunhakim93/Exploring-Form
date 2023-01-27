@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import { FormElementContainerType, FormElementType } from "../../../../types";
 import { FormElementsList } from "../../elements";
-import { EditIcon, TrashIcon } from "../Components/Buttons";
+import { EditIcon, TrashIcon } from "../../../../tiptap/Buttons";
 
 type FormContainerElementProps = {
   id: string;

@@ -15,7 +15,7 @@ const ViewState: React.FC = () => {
         top: "0px",
         background: "black",
         color: "white",
-        overflow: "hidden",
+        overflow: "auto",
         zIndex: "100",
       }}
     >
@@ -38,9 +38,8 @@ const ViewState: React.FC = () => {
       {isAdjacencyList && (
         <pre
           style={{
-            overflow: "auto",
+            overflow: "hidden",
             width: "100%",
-            margin: "15px",
           }}
         >
           {JSON.stringify(formData, null, 2)}
@@ -49,9 +48,8 @@ const ViewState: React.FC = () => {
       {!isAdjacencyList && (
         <pre
           style={{
-            overflow: "auto",
+            overflow: "hidden",
             width: "100%",
-            margin: "15px",
           }}
         >
           {JSON.stringify(unAdjacencify(formData), null, 2)}
