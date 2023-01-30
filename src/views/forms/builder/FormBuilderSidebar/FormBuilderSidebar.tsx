@@ -1,11 +1,12 @@
 import React from "react";
 import { FormIcon } from "../../elements/FormIcons";
 
-const elementArr = ["checkbox", "shortAnswer", "container"] as const;
+const elementArr = ["checkbox", "shortAnswer", "container", "text"] as const;
 const elementColor = {
   checkbox: "#f5cac3",
   shortAnswer: "#84a59d",
   container: "#f7ede2",
+  text: "#eeeeee",
 };
 
 type Props = {

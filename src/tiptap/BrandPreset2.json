@@ -1,0 +1,33 @@
+{
+  "Paragraph": {
+    "fontFamily": "Figtree",
+    "fontSize": "",
+    "color": ""
+  },
+  "Heading 1": {
+    "fontFamily": "Raleway",
+    "fontSize": "84px",
+    "color": "rgb(141, 119, 119)"
+  },
+  "Heading 2": {
+    "fontFamily": "Special Elite",
+    "fontSize": "45px",
+    "color": "rgb(105, 147, 165)"
+  },
+  "Heading 3": {
+    "fontFamily": "Caveat",
+    "fontSize": "35px",
+    "color": "rgb(255, 213, 5)"
+  },
+  "Heading 4": {
+    "fontFamily": "Roboto",
+    "fontSize": "",
+    "color": ""
+  },
+  "Link": {
+    "fontFamily": "Figtree",
+    "fontSize": "",
+    "color": "",
+    "backgroundColor": "rgb(255, 255 ,0)"
+  }
+}

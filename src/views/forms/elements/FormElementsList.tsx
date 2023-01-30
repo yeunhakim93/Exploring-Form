@@ -102,7 +102,7 @@ export const FormElementsList: React.FC<Props> = ({
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <DropArea
         index={containerIndex}
         parent={parentId}
@@ -137,17 +137,28 @@ export const FormElementsList: React.FC<Props> = ({
       ) : (
         <div
           style={{
-            backgroundColor: "#f7ede2",
-            border: "1px white solid",
-            margin: "10px",
-            padding: "10px",
-            alignItems: "center",
-            justifyContent: "space-between",
+            display: "flex",
+            flexDirection: "column",
             borderRadius: "5px",
-            textAlign: "center",
           }}
         >
-          Add your element here
+          <div
+            style={{
+              margin: "auto",
+              color: "grey",
+              borderRadius: "50%",
+              backgroundColor: "white",
+              width: "25px",
+              height: "25px",
+              fontSize: "25px",
+              lineHeight: "25px",
+              fontWeight: "bold",
+              textAlign: "center",
+              cursor: "pointer",
+            }}
+          >
+            +
+          </div>
           <DropArea
             handleAddElement={handleAddElement}
             handleMoveElement={handleMoveElement}

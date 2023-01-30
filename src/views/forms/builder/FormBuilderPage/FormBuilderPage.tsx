@@ -42,7 +42,9 @@ export const FormBuilderPage = () => {
           float: "right",
           borderRadius: "10px",
           fontSize: isDesktop ? "15px" : "12px",
-          zIndex: "1000",
+          zIndex: "10000",
+          backgroundColor: "#eeeeef",
+          cursor: "pointer",
         }}
         onClick={handleToggleStateView}
       >

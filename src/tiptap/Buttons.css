@@ -1,0 +1,182 @@
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+.container-element-button-container {
+  position: absolute;
+  top: 3px;
+  padding-bottom: 3px;
+  height: 20px;
+  width: 24px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.element-button-container {
+  position: absolute;
+  height: 20px;
+  width: 24px;
+  padding-bottom: 3px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  border: 1px solid;
+  align-items: center;
+  justify-content: center;
+  background-color: #666376;
+}
+
+.element-button {
+  height: 13px;
+  width: 13px;
+}
+
+.tiptap-menu {
+  top: -45px;
+  left: -2px;
+  /* left: anchor(--scroll-anchor end);
+  right: anchor(--scroll-anchor start); */
+  position: fixed;
+  display: flex;
+  gap: 5px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  min-width: 300px;
+  border: 1px solid #d2d6da;
+  height: 36px;
+  padding: 0 5px;
+  z-index: 100;
+}
+.tiptap-text-menu {
+  top: -8px;
+  left: 328px;
+  /* left: anchor(--scroll-anchor end);
+  right: anchor(--scroll-anchor start); */
+  position: fixed;
+  display: flex;
+  gap: 5px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  min-width: 140px;
+  border: 1px solid #d2d6da;
+  height: 36px;
+  padding: 0 5px;
+  z-index: 100;
+}
+
+.tiptap-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.tiptap-button:hover {
+  background-color: #eeeeef;
+  transition: 0.3s;
+}
+
+.brand-setting-style-dropdown {
+  display: flex;
+  align-self: center;
+  color: #697789;
+  font-size: 14px;
+  line-height: 22px;
+  margin-left: 2px;
+  transition: 0.3s;
+  padding-left: 5px;
+}
+.brand-setting-style-dropdown:hover {
+  background-color: #eeeeef;
+  transition: 0.3s;
+}
+.tiptap-brand-setting-menu {
+  top: -8px;
+  left: -2px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  min-width: 140px;
+  border: 1px solid #d2d6da;
+  z-index: 100;
+  padding: 8px;
+}
+.divider {
+  width: 1px;
+  background-color: #eeeeef;
+  height: 30px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.dropdown {
+  height: 20px;
+  margin: auto 0;
+  border: none;
+  color: #697789;
+  text-align: center;
+}
+
+.is-active {
+  /* width: 24px;
+  height: 24px; */
+  border-radius: 4px;
+  background-color: #eeeeef;
+  transition: 0.3s;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.un-doable {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.color-picker-label {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.color-picker-container {
+  align-self: center;
+}
+
+#color-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 27px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#color-picker::-webkit-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+#color-picker::-moz-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+
+.smartfield-link {
+  font-family: Figtree;
+  font-size: 15px;
+  color: #ffe0e0;
+  height: 30px;
+  background-color: red;
+}

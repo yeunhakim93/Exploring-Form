@@ -1,7 +1,6 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import { Tiptap } from "../../../../tiptap/Tiptap";
-import { EditIcon, TrashIcon } from "../../../../tiptap/Buttons";
 
 type Props = {
   id: string;
@@ -12,7 +11,7 @@ type Props = {
   handleRemoveElement: (id: string) => void;
 };
 
-export const FormCheckboxElement: React.FC<Props> = ({
+export const FormTextElement: React.FC<Props> = ({
   id,
   body,
   listId,
@@ -20,27 +19,35 @@ export const FormCheckboxElement: React.FC<Props> = ({
   handleTiptapDeactivate,
   handleRemoveElement,
 }) => {
+  const [elementBody, setElementBody] = useState(body);
+
+  const handleSetElementBody = (newBody: string) => {
+    setElementBody(newBody);
+  };
   const onRemoveElement = () => {
     handleRemoveElement(id);
   };
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "checkboxElement",
-    item: { type: "checkbox", id, body, listId, onRemoveElement },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: "textElement",
+      item: { type: "text", id, body: elementBody, listId, onRemoveElement },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
     }),
-  }));
+    [elementBody]
+  );
   const opacity = isDragging ? 0.3 : 1;
   return (
     <div
-      id={id}
+      id={"element" + id}
       ref={drag}
       style={{
-        backgroundColor: "#f5cac3",
+        backgroundColor: "#ffffff",
         border: "1px grey solid",
-        padding: "10px",
+        padding: "10px 20px",
         display: "flex",
-        alignItems: "flex-end",
+        flexDirection: "column",
         gap: "10px",
         borderRadius: "5px",
         boxShadow: "3px 5px 10px rgba(0, 0, 0, 0.2)",
@@ -49,12 +56,13 @@ export const FormCheckboxElement: React.FC<Props> = ({
         opacity,
       }}
     >
-      <div
-        dangerouslySetInnerHTML={{
-          __html: body + " <small>id:" + id + "</small>",
-        }}
-      ></div>
-      <input type="checkbox"></input>
+      <Tiptap
+        content={elementBody}
+        id={id}
+        isActive={isTiptapActive}
+        handleSetElementBody={handleSetElementBody}
+        handleTiptapDeactivate={handleTiptapDeactivate}
+      />
     </div>
   );
 };

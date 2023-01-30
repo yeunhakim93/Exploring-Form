@@ -1,6 +1,6 @@
 export type FormElementType = {
   id: string;
-  type: "shortAnswer" | "checkbox" | "container";
+  type: "shortAnswer" | "checkbox" | "container" | "text";
   body: string;
   color?: string;
   required?: boolean;
@@ -27,7 +27,7 @@ export type FormData = {
 
 export type FormAdjacencifiedData = {
   [key: string]: {
-    type: "shortAnswer" | "checkbox" | "container";
+    type: "shortAnswer" | "checkbox" | "container" | "text";
     color?: string;
     body?: string;
     children?: Array<Array<string>>;

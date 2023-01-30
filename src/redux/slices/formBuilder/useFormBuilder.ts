@@ -6,6 +6,7 @@ import {
   removeFormElement,
   clearForm,
   submitForm,
+  updateFormElementBody,
 } from "./formBuilder.slice";
 import { FormElementType } from "../../../types";
 
@@ -58,6 +59,15 @@ export const useFormBuilder = () => {
     formElementId: string;
   }) => dispatch(removeFormElement({ id: formElementId }));
 
+  // for modifying body
+  const dispatchUpdateFormElementBody = ({
+    formElementId,
+    body,
+  }: {
+    formElementId: string;
+    body: string;
+  }) => dispatch(updateFormElementBody({ id: formElementId, body }));
+
   const dispatchClearForm = () => dispatch(clearForm());
   const dispatchSubmitForm = () => dispatch(submitForm());
 
@@ -68,6 +78,7 @@ export const useFormBuilder = () => {
       dispatchRemoveFormElement,
       dispatchClearForm,
       dispatchSubmitForm,
+      dispatchUpdateFormElementBody,
     }),
     [formData]
   );

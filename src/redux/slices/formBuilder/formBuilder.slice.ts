@@ -37,13 +37,24 @@ export const formBuilderSlice = createSlice({
     submitForm(state) {
       return initialState;
     },
+    updateFormElementBody(
+      state,
+      action: PayloadAction<{ id: string; body: string }>
+    ) {
+      handleElementUpdate(state, action);
+    },
   },
 });
 
 export const selectFormData = (state: RootState) => state.formBuilder.data;
 
-export const { removeFormElement, clearForm, submitForm, addOrUpdateElement } =
-  formBuilderSlice.actions;
+export const {
+  removeFormElement,
+  clearForm,
+  submitForm,
+  addOrUpdateElement,
+  updateFormElementBody,
+} = formBuilderSlice.actions;
 
 function adjacencify(
   inputDataFromDb: Array<FormElementType>
@@ -395,4 +406,15 @@ function handleDelete(state: any, action: PayloadAction<{ id: string }>) {
 
     delete state.data[action.payload.id];
   }
+}
+
+function handleElementUpdate(
+  state: any,
+  action: PayloadAction<{
+    id: string;
+    body: string;
+  }>
+) {
+  const { id, body } = action.payload;
+  state.data[id].body = body;
 }

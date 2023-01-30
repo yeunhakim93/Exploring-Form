@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDrag } from "react-dnd";
 import { AddButton } from "../Components/AddButton";
 type Props = {
-  type: "container" | "shortAnswer" | "checkbox";
+  type: "container" | "shortAnswer" | "checkbox" | "text";
   color?: string;
 };
 export const FormIcon: React.FC<Props> = ({ type, color }) => {

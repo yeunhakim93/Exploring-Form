@@ -1,10 +1,14 @@
 import * as React from "react";
 import { useDrag } from "react-dnd";
+import { Tiptap } from "../../../../tiptap/Tiptap";
+import { EditIcon, TrashIcon } from "../../../../tiptap/Buttons";
 
 type Props = {
   id: string;
   body: string;
   listId: string;
+  isTiptapActive: boolean;
+  handleTiptapDeactivate: (e: React.FocusEvent<HTMLDivElement>) => void;
   handleRemoveElement: (id: string) => void;
 };
 
@@ -12,14 +16,16 @@ export const FormShortAnswerElement: React.FC<Props> = ({
   id,
   body,
   listId,
+  isTiptapActive,
+  handleTiptapDeactivate,
   handleRemoveElement,
 }) => {
-  const onMoveElement = () => {
+  const onRemoveElement = () => {
     handleRemoveElement(id);
   };
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "shortAnswerElement",
-    item: { type: "shortAnswer", id, body, listId, onMoveElement },
+    item: { type: "shortAnswer", id, body, listId, onRemoveElement },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -27,11 +33,11 @@ export const FormShortAnswerElement: React.FC<Props> = ({
   const opacity = isDragging ? 0.3 : 1;
   return (
     <div
+      id={"element" + id}
       ref={drag}
       style={{
         backgroundColor: "#84a59d",
         border: "1px grey solid",
-        margin: "10px",
         padding: "10px",
         display: "flex",
         flexDirection: "column",
@@ -43,24 +49,20 @@ export const FormShortAnswerElement: React.FC<Props> = ({
         opacity,
       }}
     >
-      <button
-        style={{
-          position: "absolute",
-          right: "10px",
-          top: "10px",
-          border: "1px grey solid",
-          borderRadius: "5px",
-        }}
-        onClick={onMoveElement}
-      >
-        x
-      </button>
       <div
         dangerouslySetInnerHTML={{
           __html: body + " <small>id:" + id + "</small>",
         }}
       ></div>
-      <input name={id} id={id}></input>
+      <input
+        name={id}
+        id={id}
+        style={{
+          height: "25px",
+          borderRadius: "5px",
+          border: "1px solid grey",
+        }}
+      ></input>
     </div>
   );
 };

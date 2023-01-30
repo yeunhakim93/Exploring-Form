@@ -10,12 +10,12 @@ const ViewState: React.FC = () => {
       style={{
         position: "absolute",
         width: "100vw",
-        height: "80vh",
+        height: "90vh",
         left: "0px",
         top: "0px",
         background: "black",
         color: "white",
-        overflow: "hidden",
+        overflow: "auto",
         zIndex: "100",
       }}
     >
@@ -23,16 +23,23 @@ const ViewState: React.FC = () => {
         onClick={(e) => {
           setIsAdjacencyList((prev) => !prev);
         }}
+        style={{
+          margin: "10px",
+          border: "none",
+          padding: "10px",
+          borderRadius: "10px",
+          zIndex: "10000",
+          backgroundColor: "#676767",
+          cursor: "pointer",
+        }}
       >
         Toggle Transform
       </button>
       {isAdjacencyList && (
         <pre
           style={{
-            overflow: "scroll",
-            height: "90%",
+            overflow: "hidden",
             width: "100%",
-            margin: "15px",
           }}
         >
           {JSON.stringify(formData, null, 2)}
@@ -41,10 +48,8 @@ const ViewState: React.FC = () => {
       {!isAdjacencyList && (
         <pre
           style={{
-            overflow: "scroll",
-            height: "90%",
+            overflow: "hidden",
             width: "100%",
-            margin: "15px",
           }}
         >
           {JSON.stringify(unAdjacencify(formData), null, 2)}

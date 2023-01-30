@@ -6,11 +6,11 @@ import { FormElementType } from "../../../../types";
 
 type itemType = {
   id: string;
-  type: "container" | "checkbox" | "shortAnswer";
+  type: "container" | "checkbox" | "shortAnswer" | "text";
   body: string;
   listId: string;
   columns: any[];
-  onMoveElement: () => void;
+  onRemoveElement: () => void;
 };
 
 type DropAreaProps = {
@@ -66,7 +66,7 @@ export const DropArea: React.FC<DropAreaProps> = ({
         if (listId === item.listId) {
           handleMoveElement(item.id, prevId);
         } else {
-          item.onMoveElement && item.onMoveElement();
+          item.onRemoveElement && item.onRemoveElement();
           handleAddElement &&
             handleAddElement({ newElement, prevId, index, parent });
         }
