@@ -45,7 +45,7 @@ export const FormTextElement: React.FC<Props> = ({
       style={{
         backgroundColor: "#ffffff",
         border: "1px grey solid",
-        padding: "10px",
+        padding: "10px 20px",
         display: "flex",
         flexDirection: "column",
         gap: "10px",

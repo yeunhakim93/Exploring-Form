@@ -172,3 +172,11 @@ button {
   border-radius: 50%;
   border: none;
 }
+
+.smartfield-link {
+  font-family: Figtree;
+  font-size: 15px;
+  color: #ffe0e0;
+  height: 30px;
+  background-color: red;
+}

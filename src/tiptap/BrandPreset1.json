@@ -23,5 +23,11 @@
     "fontFamily": "Special Elite",
     "fontSize": "",
     "color": ""
+  },
+  "Link": {
+    "fontFamily": "Figtree",
+    "fontSize": "",
+    "color": "",
+    "backgroundColor": "rgb(255, 255 ,0)"
   }
 }
